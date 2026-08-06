@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7. మొక్కలు మరియు జంతువులలో రవాణా</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mandali&family=Tenali+Ramakrishna&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --header-bg: linear-gradient(135deg, #2c3e50, #3498db);
+            --header-text: #ffffff;
+            --accent-1: #e74c3c;
+            --accent-2: #8e44ad;
+            --accent-3: #27ae60;
+            --accent-4: #d35400;
+            --accent-5: #2980b9;
+            --border-color: #bdc3c7;
+            --note-bg: #fef9e7;
+            --note-border: #f1c40f;
+            --quote-bg: #ebf5fb;
+            --quote-border: #3498db;
+            --table-header: #34495e;
+            --table-row-alt: #f8f9f9;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: linear-gradient(135deg, #1f2937, #111827);
+            --header-text: #f3f4f6;
+            --accent-1: #ff6b6b;
+            --accent-2: #bb86fc;
+            --accent-3: #4ade80;
+            --accent-4: #fb923c;
+            --accent-5: #60a5fa;
+            --border-color: #374151;
+            --note-bg: #2d2416;
+            --note-border: #d97706;
+            --quote-bg: #172554;
+            --quote-border: #3b82f6;
+            --table-header: #1f2937;
+            --table-row-alt: #262626;
+        }
+
+        body {
+            font-family: 'Mandali', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Toggle Switch Styling */
+        .theme-switch-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 8px 15px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-switch-wrapper span {
+            margin-right: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #27ae60;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        header.main-header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header.main-header h1 {
+            font-family: 'Tenali Ramakrishna', sans-serif;
+            font-size: 2.8rem;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        header.main-header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        h2 {
+            font-family: 'Tenali Ramakrishna', sans-serif;
+            font-size: 2rem;
+            border-bottom: 3px solid;
+            padding-bottom: 8px;
+            margin-top: 0;
+            display: inline-block;
+        }
+
+        h3 {
+            font-family: 'Tenali Ramakrishna', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 25px;
+        }
+
+        /* Paragraph Color Variations */
+        .p-color-1 { color: var(--accent-1); }
+        .p-color-2 { color: var(--accent-2); }
+        .p-color-3 { color: var(--accent-3); }
+        .p-color-4 { color: var(--accent-4); }
+        .p-color-5 { color: var(--accent-5); }
+        .standard-p { color: var(--text-color); }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 18px;
+            line-height: 1.8;
+        }
+
+        strong {
+            font-weight: bold;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        /* Notes & Quotes */
+        .note-box {
+            background: var(--note-bg);
+            border-left: 6px solid var(--note-border);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .quote-box {
+            background: var(--quote-bg);
+            border-left: 6px solid var(--quote-border);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .quote-box cite {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: right;
+            color: var(--accent-5);
+        }
+
+        /* Image Placeholder Cards */
+        .img-card {
+            background: var(--card-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .img-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .img-caption {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--accent-5);
+            text-align: center;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.05rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header);
+            color: #ffffff;
+            font-family: 'Tenali Ramakrishna', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-row-alt);
+        }
+
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        /* List Styles */
+        ul, ol {
+            padding-left: 25px;
+            font-size: 1.1rem;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .key-terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .term-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .term-badge:hover {
+            background: var(--accent-5);
+            color: #ffffff;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dark/Light Mode Toggle Switch -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider"></div>
+        </label>
+    </div>
+
+    <div class="container">
+        
+        <header class="main-header">
+            <h1>7. మొక్కలు మరియు జంతువులలో రవాణా</h1>
+        </header>
+
+        <!-- Intro Section -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-1);">పరిచయం</h2>
+            <p class="standard-p">జీవరాసులన్నింటి మనుగడకు <strong>ఆహారం, నీరు మరియు ఆక్సిజన్</strong> అవసరమని మీరు ముందే నేర్చుకొన్నారు. ఇవన్నీ వాటి శరీరంలోని వివిధ భాగాలకు రవాణా కావలసిన అవసరం ఉంది.</p>
+            <p class="p-color-1">ఇంకా, జంతువులలో వ్యర్థాలను, వాటిని తొలగించగల భాగాలకు రవాణా కావలసిన అవసరం ఉంది. ఇవన్నీ ఎలా సాధించబడతాయని మీరు ఆశ్చర్యపోతున్నారా?</p>
+            <p class="standard-p">పటం 7.1 చూడండి. మీరు <strong>హృదయము లేదా గుండె మరియు రక్త నాళాలను</strong> గమనించారా? అవి పదార్థాలను రవాణా చేయడాన్ని నిర్వహిస్తాయి, అవి రెండూ కలిసి <strong>ప్రసరణ వ్యవస్థను</strong> ఏర్పరుస్తాయి. ఈ అధ్యాయంలో, మీరు జంతువులు మరియు మొక్కలలో పదార్థాల రవాణా గురించి నేర్చుకుంటారు.</p>
+        </div>
+
+        <!-- Section 7.1 -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-2);">7.1 ప్రసరణ వ్యవస్థ - రక్తం</h2>
+            <p class="p-color-2">మీ శరీరంపై గాయమైనప్పుడు ఏమి జరుగుతుంది? <strong>రక్తం బయటకు ప్రవహిస్తుంది</strong>. అయితే రక్తం అంటే ఏమిటి? రక్తం అనేది రక్త నాళాలలో ప్రవహించే ద్రవం.</p>
+            <p class="standard-p">ఇది జీర్ణమైన ఆహారం వంటి పదార్థాలను చిన్న ప్రేగు నుండి శరీరంలోని ఇతర భాగాలకు రవాణా చేస్తుంది. ఇది ఊపిరితిత్తుల నుండి శరీర కణాలకు <strong>ఆక్సిజన్ను</strong> తీసుకువెళుతుంది. ఇది వ్యర్థాలను శరీరం నుండి తొలగించడానికి రవాణా చేస్తుంది.</p>
+            <p class="p-color-3">రక్తం వివిధ పదార్థాలను ఎలా తీసుకువెళుతుంది? రక్తం వివిధ రకాల కణాలతో నింపబడిన <strong>ప్లాస్మా</strong> అనే ద్రవంతో కూడి ఉంటుంది.</p>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 30px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.1.png?raw=true" alt="పటం 7.1: రక్త ప్రసరణ వ్యవస్థ">
+                </div>
+                <div class="img-caption">పటం 7.1: రక్త ప్రసరణ వ్యవస్థ (ధమనులు ఎరుపు రంగులో, సిరలు నీలం రంగులో చూపబడ్డాయి)<br>చిత్రంలో గుర్తించబడిన భాగాలు: గుండె, సిర, ధమని.</div>
+            </div>
+
+            <div class="quote-box">
+                <p><strong>ప్రశ్న:</strong> రక్తం ఎరుపు రంగులో ఎందుకు ఉంది?</p>
+                <p><strong>ఎర్ర రక్త కణాలు (RBC)</strong> హీమోగ్లోబిన్ అనే ఎరుపు రంగు వర్ణద్రవ్యాన్ని కలిగి ఉండే ప్రత్యేకమైన కణాలు. హీమోగ్లోబిన్ ఆక్సిజన్‌తో బంధం చెంది, మొదట శరీరంలోని అన్ని భాగాలకు రవాణా చేస్తుంది, తదుపరి అన్ని కణాలకూ రవాణా చేస్తుంది. హీమోగ్లోబిన్ లేకపోతే శరీరంలోని అన్ని కణాలకూ ఆక్సిజన్‌ను ద్యుతేస్తాత్మకంగా అందజేయడం కష్టమవుతుంది. హీమోగ్లోబిన్ ఉండటం రంగును ఎరుపుగా కనిపించేలా చేస్తుంది.</p>
+                <cite>— రక్త రంగు రహస్యం</cite>
+            </div>
+
+            <p class="standard-p">అలాగే మన శరీరంలోకి ప్రవేశించే క్రిస్టల్ అక్రమణలతో కూడిన <strong>తెల్ల రక్త కణాలను (WBC)</strong> కూడా రక్తంలో ఉంటాయి.</p>
+
+            <div class="note-box">
+                <p><strong>బూజో అనుభవం:</strong> ఒకనాడు ఆటాడేటప్పుడు బూజో కిందపడిపోయాడు. అతని మోకాళ్ళకు గాయమైంది. మోకాలు నుండి రక్తం కారసాగింది. కొద్ది సమయం తర్వాత, రక్తప్రవాహం ఆగిపోయి, ముందుగా మోకాలు రంగులో మందంగా ఉండేట్లుగా కనుగొన్నాడు. దీని గురించి బూజో ఆశ్చర్యపడ్డాడు.</p>
+                <p><strong>సమాధానం:</strong> రక్తంలో <strong>రక్త ఫలకికలు (Platelets)</strong> అని పిలవబడే మరో ప్రత్యేకమైన కణాలు ఉండటం వల్ల రక్తం గడ్డకట్టడం జరుగుతుంది.</p>
+            </div>
+        </div>
+
+        <!-- Blood Vessels -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-3);">రక్త నాళాలు</h2>
+            <p class="p-color-4">శరీరంలో వివిధ రకాల రక్త నాళాలు ఉంటాయి. వ్యాయామ సమయంలో ఊపిరితిత్తులు సూక్ష్మ శ్వాసనాళాల నుండి కార్బన్‌డై ఆక్సైడ్‌ను పీల్చుకుంటాయి. శరీరంలోని మిగిలిన భాగానికి ఆక్సిజన్ రవాణా చేయాలి.</p>
+            <p class="standard-p">ఎలాగంటే, రక్తంలో కణాల నుండి పోషక పదార్థాలతో పాటు కార్బన్‌డై ఆక్సైడ్‌ను ఆక్సిజన్‌ను ప్రసరింపజేస్తుంది. మీరు నష్టపోయినట్లుగానే కార్బన్‌డై ఆక్సైడ్‌ను బయటికి తీసివేయడానికి శ్వాసనాళాలలోని రక్త ప్రసరణ నాళాల్లోకి తిరిగి ప్రయాణించాలి. కాబట్టి, శరీరంలో <strong>ధమనులు మరియు సిరలు</strong> అనే రెండు రకాల రక్త నాళాలు ఉంటాయి. (పటం 7.1)</p>
+            
+            <p class="p-color-5"><strong>ధమనులు</strong> ఆక్సిజన్‌తో కూడిన రక్తాన్ని గుండె నుండి శరీరంలోని అన్ని భాగాలకు తీసుకొని వెళతాయి. రక్త ప్రసరణ వేగంగా, అత్యధిక పీడనంలో ఉండటం వల్ల, ధమనులు మందమైన గోడలను కలిగి ఉంటాయి.</p>
+
+            <h3>కృత్యం 7.1: నాడీ స్పందన పరిశీలన</h3>
+            <p class="standard-p">మీ కుడి చేతి అరిచేతి మధ్యలో వేలికి కొంచెం కింద మరియు బొటనవేలు మధ్యలో వేలు ఉంచండి (పటం 7.2). మీరు కొన్ని కడుపులను పట్టుకోవడాన్ని అనుభవిస్తారా? పట్టుకోవడానికి మీరు ఎందుకు అనుకుంటున్నారు? ఈ పట్టుకోవడాన్ని <strong>నాడీ స్పందన</strong> అంటారు మరియు ఇది ధమనులలో ప్రవహించే రక్తం కారణంగా జరుగుతుంది. ఒక నిమిషానికి నాడీ స్పందనల సంఖ్యను లెక్కించండి. విశ్రాంతిలో ఉన్న ఒక వ్యక్తి, సాధారణంగా నిమిషానికి <strong>72 మరియు 80 మధ్య</strong> నాడీ స్పందనలను కలిగి ఉంటాడు.</p>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 30px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                  <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.2.png?raw=true" alt="పటం 7.2: అరిచేతిలో నాడీ స్పందన">  
+                    
+                </div>
+                <div class="img-caption">పటం 7.2: అరిచేతిలో నాడీ స్పందన</div>
+            </div>
+
+            <div class="quote-box">
+                <p><strong>బూజో ఆలోచన:</strong> "నేను విశ్రాంతిలో ఉన్నాను! హృదయము ఎప్పుడు నిరంతరం ఆక్సిజన్‌తో కూడిన రక్తమును తీసుకొని వెళుతుంటుందని నాకు తెలుసు. ప్రతిరోజూ హృదయము నుండి రక్తమును తీసుకొని వెళుతుంటుంది, కాబట్టి దీనిని సిర అని పిలవకుండా హృదయమునే పిలుస్తారనే సూత్రం స్పష్టంచేసింది. ఇది కార్బన్‌డై ఆక్సైడ్ అత్యధికంగా ఉండే రక్తమును శ్వాసనాళాలలోనికి తీసుకొని వెళుతుంది. ప్రతిరోజూ సిర ఆక్సిజన్‌తో అత్యధికంగా ఉన్న రక్తమును శ్వాసనాళాల నుండి గుండెకు తీసుకొని వెళుతుంది."</p>
+            </div>
+
+            <h3>రక్త ప్రసరణ వ్యవస్థ మార్గం</h3>
+            <ul>
+                <li><strong>దస్రాలు (ధమనులు):</strong> ఆక్సిజన్ సమృద్ధిగా ఉండే రక్తం.</li>
+                <li><strong>హృదయము:</strong> పంపింగ్ కేంద్రం.</li>
+                <li><strong>శ్వాసనాళాలు (సిరలు):</strong> కార్బన్ డై ఆక్సైడ్ సమృద్ధిగా ఉండే రక్తం.</li>
+            </ul>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 30px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.3.png?raw=true" alt="పటం 7.3: ప్రసరణ వ్యవస్థ యొక్క రేఖాచిత్రం">
+                    
+                </div>
+                <div class="img-caption">పటం 7.3: ప్రసరణ వ్యవస్థ యొక్క రేఖాచిత్రం (రక్త మార్గం)</div>
+            </div>
+
+            <p class="p-color-1"><strong>సిరలు అనగా:</strong> శరీరంలోని అన్ని భాగాల నుండి గుండెకు ఆక్సిజన్‌తో కూడిన రక్తమును లేదా కార్బన్‌డై ఆక్సైడ్ రక్తమును తీసుకొని వెళ్ళే రక్త నాళాలు. సిరలు పలుచని గోడలను కలిగి ఉంటాయి. రక్తాన్ని గుండె పైకి మాత్రమే ప్రసరింపజేసేలా చూడటం కోసం సిరలలో <strong>కవాటాలు</strong> ఉంటాయి.</p>
+            <p class="standard-p">రక్తకేశనాళికలు అని పిలవబడే సన్నని నాళాలు అన్ని కలిసి సిరలుగా ఏర్పడి గుండెలోకి ప్రసరిస్తాయి.</p>
+        </div>
+
+        <!-- Heart Section -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-4);">గుండె (Heart)</h2>
+            <p class="p-color-2">గుండె తనతో ఇతర పదార్థాలను తీసుకొని వెళ్ళిన రక్తాన్ని ప్రసరణ చేయడం కోసం పనితీరును ప్రదర్శిస్తూ నిరంతరం కొట్టుకుంటూ ఉండే నేతృత్వ వ్యవస్థ. ఒక పట్టీపై ఆగాకుండా సంవత్సరాల కొద్దీ పనిచేయడాన్ని ఊహించుకోవడానికి ప్రయత్నించండి! నిజంగా ఇది నమ్మకశక్యం కాదు.</p>
+            <p class="standard-p">గుండె ఛాతి కుహరంలో ఉంటుంది మరియు గుండె యొక్క కొద్దిగా వంపు కిందికి కుడి వైపుకు వలిగి ఉంటుంది (పటం 7.1). మీ ఇష్టచేతితో వ్రేళ్లను ముడిచి పిడికిలిగా పట్టుకోండి. గుండె మీ పిడికిలి పరిమాణంలో ఉంటుంది.</p>
+
+            <div class="note-box">
+                <p><strong>ఆశ్చర్యకరమైన విషయం:</strong> ఒక వ్యక్తి యొక్క గుండె పరిమాణం అతని పిడికిలి అంత ఉంటుంది.</p>
+            </div>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 40px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.4.png?raw=true" alt="పటం 7.4: మనుష్యుని గుండె యొక్క నిర్మాణం">
+                   
+                </div>
+                <div class="img-caption">పటం 7.4: మనుష్యుని గుండె యొక్క నిర్మాణం<br>(ధమని, ఊపిరితిత్తుల ధమని, ఊపిరితిత్తుల సిర, కుడి కర్ణిక, కుడి జఠరిక, మహాధమని, మహాసిర, ఎడమ కర్ణిక, ఎడమ జఠరిక)</div>
+            </div>
+
+            <p class="p-color-3">గుండెలో నాలుగు గదులు ఉంటాయి. పై రెండు గదులను <strong>కర్ణికలు</strong> (ఎడమ కర్ణిక, కుడి కర్ణిక) అని పిలుస్తారు. క్రింది రెండు గదులను <strong>జఠరికలు</strong> (పటం 7.4) అని పిలుస్తారు. గదుల మధ్య ఉన్న విభజనపటము ఆక్సిజన్ సమృద్ధిగా ఉన్న రక్తం మరియు కార్బన్‌డై ఆక్సైడ్ సమృద్ధిగా ఉన్న రక్తం ఒకదానితో ఒకటి కలవకుండా నియంత్రించడంలో వ్యూహాత్మకంగా సహాయపడుతుంది.</p>
+
+            <h3>కృత్యం / పరిశీలన: హృదయ స్పందన</h3>
+            <p class="standard-p">ఛాతిపై మీ గుండె దగ్గర గరాటు యొక్క మూతిని ఉంచండి. ఇప్పుడు జాగ్రత్తగా వినేందుకు ప్రయత్నించండి. గుండె క్రమంగా కొట్టుకునే శబ్దం మీరు విన్నారా? ఆ శబ్దం <strong>హృదయ స్పందనలవి</strong>. ఒక నిమిషానికి మీ గుండె ఎన్నిసార్లు కొట్టుకుంటుంది? 4-5 నిమిషాలు పరిగెత్తిన తర్వాత లెక్కించండి. మీ పరిశీలనలను సరిపోల్చండి.</p>
+
+            <!-- Tables for Pulse Rate (Mobile Responsive Wrapper Added) -->
+<div style="overflow-x: auto; width: 100%; margin-bottom: 20px;">
+    <h3>పట్టిక 7.1: నాడీ స్పందన రేటు</h3>
+    <table style="width: 100%; min-width: 450px;">
+        <thead>
+            <tr>
+                <th>క్రమ సంఖ్య</th>
+                <th>వ్యక్తి / పరిస్థితి</th>
+                <th>నిమిషానికి నాడీ స్పందనల సంఖ్య</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>విశ్రాంతిలో ఉన్న వ్యక్తి</td><td>72 - 80</td></tr>
+            <tr><td>2</td><td>నడక తర్వాత</td><td>85 - 95</td></tr>
+            <tr><td>3</td><td>పరుగు తీసిన తర్వాత</td><td>110 - 130</td></tr>
+            <tr><td>4</td><td>పరిశీలన 4</td><td>-</td></tr>
+            <tr><td>5</td><td>పరిశీలన 5</td><td>-</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="overflow-x: auto; width: 100%; margin-bottom: 20px;">
+    <h3>పట్టిక 7.2: హృదయ స్పందన మరియు నాడీ స్పందన రేటు (విశ్రాంతి మరియు పరుగు తర్వాత)</h3>
+    <table style="width: 100%; min-width: 600px;">
+        <thead>
+            <tr>
+                <th>విద్యార్థి పేరు</th>
+                <th>విశ్రాంతిలో హృదయ స్పందన</th>
+                <th>పరుగు తర్వాత హృదయ స్పందన</th>
+                <th>విశ్రాంతిలో నాడీ స్పందన</th>
+                <th>పరుగు తర్వాత నాడీ స్పందన</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>విద్యార్థి 1 (ఉదాహరణ)</td><td>75</td><td>120</td><td>75</td><td>120</td></tr>
+            <tr><td>విద్యార్థి 2 (ఉదాహరణ)</td><td>78</td><td>125</td><td>78</td><td>125</td></tr>
+        </tbody>
+    </table>
+</div>
+
+            <p class="p-color-5">ప్రతిసారి గుండె కొట్టుకున్నప్పుడు ధమనులలో ఒక స్పందనను ఉత్పత్తి చేస్తుంది. ఒక నిమిషానికి నాడీ స్పందన రేటు హృదయ స్పందన రేటును సూచిస్తుంది.</p>
+            <p class="standard-p">స్పంజికలు మరియు హైడ్రా వంటి జంతువులు ఎలాంటి ప్రసరణ వ్యవస్థను కలిగి ఉండవు. అవి నివసించే నీటి ద్వారానే ఆహారం మరియు ఆక్సిజన్ వాటి శరీరంలోకి చేరుతుంది. నీరు బయటకు వెళ్ళేటప్పుడు వ్యర్థ పదార్థాలను మరియు కార్బన్ డై ఆక్సైడ్‌ను తీసుకువెళుతుంది. అందువల్ల, ఈ జంతువులకు రక్తం వంటి ప్రసరణ ద్రవం అవసరం లేదు.</p>
+
+            <div class="quote-box">
+                <p><strong>చరిత్ర విశేషం:</strong> ఆంగ్ల వైద్యుడు, <strong>విలియం హార్వే</strong> (క్రీ.శ 1578 నుండి 1657), రక్త ప్రసరణను కనుగొన్నాడు. శరీరంలోని నాళాల్లో రక్తం ఊగిసలాడుతుందనేది ఆ రోజుల్లో ఉన్న అభిప్రాయం. హార్వే యొక్క అభిప్రాయాలను ఎగతాళి చేశారు మరియు "సర్క్యులేటర్" అని పిలిచారు. అతను చాలా మంది రోగులను కోల్పోయాడు. అయినప్పటికీ, అతను చనిపోకముందే, ప్రసరణ గురించిన హార్వే యొక్క ఆలోచనలు సాధారణ జీవసంబంధమైన వాస్తవంగా అంగీకరించబడింది.</p>
+                <cite>— విలియం హార్వే చరిత్ర</cite>
+            </div>
+        </div>
+
+        <!-- Section 7.2 Excretion -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-1);">7.2 జంతువులలో విసర్జన</h2>
+            <p class="p-color-1">ఉచ్ఛ్వాస సమయంలో ఊపిరితిత్తుల ద్వారా కార్బన్ డై ఆక్సైడ్ శరీరం నుండి వ్యర్థాలుగా ఎలా తొలగించబడుతుందో గుర్తు చేసుకోండి. అలాగే జీర్ణం కాని ఆహారము విసర్జన సమయంలో తొలగించబడుతుందని కూడా గుర్తుంచుకోండి. ఇతర వ్యర్థ పదార్థాలు శరీరం నుండి ఎలా తొలగించబడతాయో ఇప్పుడు తెలుసుకుందాం.</p>
+            <p class="standard-p">మన కణాలు తమ విధులను నిర్వర్తించినప్పుడు, కొన్ని వ్యర్థ పదార్థాలు విడుదలవుతాయి. ఇవి విషపూరితమైనవి కాబట్టి శరీరం నుండి తొలగించాల్సిన అవసరం ఉంది. జీవుల కణాలలో ఉత్పత్తి అయ్యే వ్యర్థాలను తొలగించే ప్రక్రియను <strong>విసర్జన</strong> అంటారు. విసర్జనలో పాల్గొన్న భాగాలు విసర్జన వ్యవస్థను ఏర్పరుస్తాయి.</p>
+
+            <h3>మానవులలో విసర్జన వ్యవస్థ</h3>
+            <p class="p-color-2">రక్తంలో ఉన్న వ్యర్థాలను శరీరం నుండి తొలగించాలి. ఇది ఎలా జరుగుతుంది? రక్తాన్ని వడపోయడానికి ఒక విధానం అవసరం. ఇది <strong>మూత్రపిండాల</strong> లోని రక్త కేశనాళికల ద్వారా జరుగుతుంది. రక్తం రెండు మూత్రపిండాలను చేరేటప్పుడు ఉపయోగకరమైన మరియు హానికరమైన పదార్థాలు రెండింటిని కలిగి ఉంటుంది. ఉపయోగకరమైన పదార్థాలు రక్తంలోకి తిరిగి శోషించబడతాయి. నీటిలో కరిగిన వ్యర్థాలు <strong>మూత్రం</strong> రూపంలో తొలగించబడతాయి.</p>
+            <p class="standard-p">మూత్రపిండాల నుండి, మూత్రం గొట్టం లాంటి <strong>మూత్ర నాళాల</strong> ద్వారా మూత్రాశయంలోకి వెళుతుంది. ఇది మూత్రాశయంలో నిల్వ చేయబడుతుంది మరియు <strong>ప్రసేకం</strong> (పటం 7.6) అని పిలువబడే కండరాల గొట్టం చివరిలో మూత్ర విసర్జన ద్వారా బయటకు పంపబడుతుంది. <strong>మూత్రపిండాలు, మూత్ర నాళాలు, మూత్రాశయం మరియు ప్రసేకం</strong> మూత్ర విసర్జన వ్యవస్థను ఏర్పరుస్తాయి.</p>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 40px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.6.png?raw=true" alt="పటం 7.6: మానవ విసర్జక వ్యవస్థ">
+                    
+                </div>
+                <div class="img-caption">పటం 7.6: మానవ విసర్జక వ్యవస్థ<br>(మూత్రపిండం, మూత్రనాళం, మూత్రాశయం, ప్రసేకం, మూత్రద్వారం)</div>
+            </div>
+
+            <div class="note-box">
+                <p><strong>పహేలి సందేహం:</strong> ఇతర జంతువులు కూడా మూత్రవిసర్జన చేస్తాయా లేదా? అని తెలుసుకోవాలనుకుంటున్నది.</p>
+            </div>
+
+            <p class="standard-p">ఒక వయోజన మానవుడు సాధారణంగా 24 గంటల్లో <strong>1-1.8 లీటర్ల</strong> మూత్రాన్ని విసర్జిస్తాడు. మూత్రంలో <strong>95% నీరు, 2.5% యూరియా మరియు 2.5% ఇతర వ్యర్థ పదార్థాలు</strong> ఉంటాయి.</p>
+            <p class="p-color-3">వేసవి రోజున మనకు చెమటలు పడతాయని మనందరికీ అనుభవమే. ఈ చెమట, నీరు మరియు లవణాలను కలిగి ఉంటుంది. కొన్నిసార్లు వేసవిలో, మన బట్టలపై, ముఖ్యంగా చంకలక్రింద ప్రాంతాల్లో తెల్లటి మరక ఏర్పడటం బూజో చూశాడు. చెమటలో ఉండే లవణాలు ఈ గుర్తులను ఏర్పరుస్తాయి.</p>
+            <p class="standard-p">మట్టి కుండలో (మట్కా) ఉంచిన నీరు చల్లగా ఉంటుందని మనకు తెలుసు. ఎందుకంటే కుండ రంధ్రాల నుండి నీరు ఆవిరైపోయి ఇది చల్లదనాన్ని కలుగజేస్తుంది. అలాగే మనకు చెమట పట్టినప్పుడు మన శరీరం చల్లబడటానికి సహాయపడుతుంది.</p>
+
+            <h3>వివిధ జంతువులలో విసర్జక పదార్థాలు</h3>
+            <ul>
+                <li><strong>చేపలు వంటి జలచరాలు:</strong> కణ వ్యర్థాలను నీటిలో కరిగిపోయే <strong>అమ్మోనియాగా</strong> విసర్జిస్తాయి.</li>
+                <li><strong>పక్షులు, బల్లులు, పాములు:</strong> సగం ఘన, తెలుపు రంగు సమ్మేళనాన్ని <strong>(యూరిక్ ఆమ్లం)</strong> విసర్జిస్తాయి.</li>
+                <li><strong>మానవులలో:</strong> ప్రధాన విసర్జన పదార్థం <strong>యూరియా</strong>.</li>
+            </ul>
+
+            <div class="note-box">
+                <p><strong>డయాలిసిస్ (Dialysis):</strong> కొన్నిసార్లు ఒక వ్యక్తి యొక్క మూత్రపిండాలు ఇన్ఫెక్షన్ లేదా గాయం కారణంగా పనిచేయడం ఆగిపోవచ్చు. మూత్రపిండాల వైఫల్యం ఫలితంగా వ్యర్థ పదార్థాలు రక్తంలో చేరడం ప్రారంభిస్తాయి. కృత్రిమ కిడ్నీ ద్వారా వారి రక్తాన్ని క్రమానుగతంగా వడపోత చేస్తే తప్ప అలాంటి వ్యక్తి జీవించలేడు. ఈ ప్రక్రియను <strong>డెయాలిసిస్</strong> అంటారు.</p>
+            </div>
+        </div>
+
+        <!-- Section 7.3 Plant Transport -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-3);">7.3 మొక్కలలో పదార్థాల రవాణా</h2>
+            <p class="p-color-4">మొదటి అధ్యాయంలో మొక్కలు నీరు మరియు ఖనిజ లవణాలను వేర్ల ద్వారా గ్రహించి ఆకులకు సమకూర్చుతాయని మీరు తెలుసుకున్నారు. కిరణజన్య సంయోగక్రియ సమయంలో నీరు మరియు కార్బన్‌డై ఆక్సైడ్ ఉపయోగించి ఆకులు మొక్కకు ఆహారాన్ని తయారుచేస్తాయి. కణాలు ఈ శక్తిని జీవికి సంబంధించి ప్రధానమైన జీవ క్రియలను నిర్వహించడానికి ఉపయోగిస్తాయి.</p>
+            
+            <h3>నీరు మరియు ఖనిజాల రవాణా</h3>
+            <p class="standard-p">మొక్కలు నీరు మరియు ఖనిజాల రవాణాలను వేర్ల ద్వారా సమకూర్చుకుంటాయి. వేర్లు మూల కేశాలను కలిగి ఉంటాయి. మూల కేశాలు నీటిలో కరిగిన నీరు మరియు ఖనిజ లవణాలను సమకూర్చుకోవడం కోసం వేరు యొక్క ఉపరిక్షేత్రం పరిధిని పెంచుతుంది.</p>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 30px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.7.png?raw=true" alt="పటం 7.7">
+                    
+                </div>
+                <div class="img-caption">పటం 7.7 (ఎ) ఒక వేరు మూల కేశాలు (బి) ఒక మొక్కలో నీరు మరియు ఖనిజాల రవాణా</div>
+            </div>
+
+            <p class="p-color-5">మొక్కలలో నీరు మరియు ఖనిజాల రవాణా కోసం సంప్రదాయ కణజాలాన్ని <strong>దారువు (Xylem)</strong> అంటారు. దారువు అనగా కొమ్మ మరియు కాండాల ద్వారా వేర్ల నుండి నీటిని ఆకులకు అనుసంధానించే స్థిరమైన హేళ్లుల ద్వారా సంపాదించి తద్వారా మొక్కకు నీటిని సమకూర్చుతుంది.</p>
+            <p class="standard-p">ఆకులు ఆహారాన్ని సంయోగక్రియ చేస్తాయని మీకు తెలుసు. మొక్క అన్ని భాగాలకు ఆహారం సమకూర్చబడాలి. ఇది <strong>పోషక కణజాలం (Phloem)</strong> అని పిలవబడే సంప్రదాయ కణజాలం ద్వారా జరుగుతుంది. ఈ విధంగా దారువు, పోషక కణజాలం మొక్కలలో పదార్థాలను సమకూర్చుతాయి.</p>
+
+            <h3>కృత్యం 7.3: దారువు ప్రయోగం</h3>
+            <p class="standard-p">ఈ ప్రయోగం కోసం మనకు ఒక గ్లాసు డింకా, నీరు, మసకలి దస్రే లేదా టొమాటో కాండం మరియు ఒక బ్లేడ్ అవసరం. గ్లాసు డింకాలో మూడోవంతు నీరు పోసి, కొన్ని నీటిలో కరిగే రంగును కలుపుకోండి. టొమాటో కాండం అడుగుభాగాన్ని కోసి నీటిలో ఉంచండి. మరుసటి రోజు పరిశీలిస్తే, కాండం మధ్యలో మణికంటి రంగు కనిపిస్తుంది [పటం 7.8(బి)]. దీని ద్వారా నీరు మరియు లవణాలు కాండం మధ్యలో ఉన్న చుట్టుప్రక్కల గుసలల (దారువు) ద్వారా ఆకులకు వెళ్తున్నట్లు తెలుస్తుంది.</p>
+
+            <div class="img-card">
+                <div style="background: var(--table-row-alt); padding: 30px; border-radius: 6px; margin-bottom: 10px; border: 1px dashed var(--border-color);">
+                    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.7.8.png?raw=true" alt="పటం 7.8">
+                    
+                </div>
+                <div class="img-caption">పటం 7.8 (ఎ) రంగు నీటిలో ఉంచబడిన కొమ్మ (బి) నీరు కొమ్మ పైకి వెళుతుంది (డి) కొమ్మ చివరి భాగం యొక్క విచ్ఛేదనం</div>
+            </div>
+
+            <h3>భాష్పోత్సేకం (Transpiration)</h3>
+            <p class="p-color-1">6వ అధ్యాయంలో మొక్కలు ఈ <strong>భాష్పోత్సేకం</strong> ప్రక్రియ ద్వారా చాలా నీటిని ఆవిరి రూపంలో విడుదల చేస్తాయని మీరు తెలుసుకున్నారు. పీల్చుకున్న నీరు అంతా మొక్క వినియోగించుకోలేదు. భాష్పోత్సేకం ప్రక్రియ ద్వారా నీరు ఆకుల ఉపరితలంపై ఉన్న <strong>పత్ర రంధ్రాల</strong> ద్వారా ఆవిరిసడిపోతుంది. భాష్పోత్సేకం మొక్కను కూడా చల్లగా ఉంచుతుంది.</p>
+        </div>
+
+        <!-- Summary & Key Terms -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-2);">ముఖ్యమైన అంశాలు & కీలక పదాలు</h2>
+            <ul style="line-height: 1.8;">
+                <li>చాలా జంతువులలో శరీరంలో ప్రవహించే రక్తం శరీరంలోని వివిధ కణాలకు ఆహారం మరియు ఆక్సిజన్‌ను రవాణా చేస్తుంది. ఇది విసర్జన కొరకు శరీరంలోని వివిధ భాగాల నుండి వ్యర్థ పదార్థాలను కూడా తీసుకువెళుతుంది.</li>
+                <li>ప్రసరణ వ్యవస్థ హృదయము లేదా గుండె మరియు రక్త నాళాలను కలిగి ఉంటుంది.</li>
+                <li>మనుష్యులలో రక్తం ధమనులు మరియు సిరల ద్వారా ప్రవహిస్తుంది, హృదయము పంపింగ్ నేతృత్వంగా పనిచేస్తుంది.</li>
+                <li>రక్తంలో ప్లాస్మా, ఎర్ర రక్త కణాలు, తెల్ల రక్త కణాలు, రక్త ఫలకికలు ఉంటాయి. హీమోగ్లోబిన్ ఉండటం వలన రక్తం ఎర్రగా ఉంటుంది.</li>
+                <li>సగటు జీవిలో నిశ్చల హృదయము లేదా గుండె నిమిషానికి 70-80 సార్లు కొట్టుకుంటుంది. దీనిని హృదయ స్పందన రేటు అంటారు.</li>
+                <li>మానవుల విసర్జన వ్యవస్థలో రెండు మూత్రపిండాలు, రెండు మూత్ర నాళాలు, ఒక మూత్రాశయం, ప్రసేకం ఉంటాయి.</li>
+                <li>దారువు (Xylem) ద్వారా నీరు, పోషక కణజాలం (Phloem) ద్వారా ఆహారం రవాణా చేయబడతాయి.</li>
+            </ul>
+
+            <h3>కీలక పదాలు (Key Terms)</h3>
+            <div class="key-terms-grid">
+                <div class="term-badge">అమ్మోనియా</div>
+                <div class="term-badge">హృదయము</div>
+                <div class="term-badge">రక్తం</div>
+                <div class="term-badge">రక్త నాళాలు</div>
+                <div class="term-badge">ధమని</div>
+                <div class="term-badge">ప్రసరణ వ్యవస్థ</div>
+                <div class="term-badge">కేశనాళిక (Capillary)</div>
+                <div class="term-badge">విసర్జన</div>
+                <div class="term-badge">విసర్జక వ్యవస్థ</div>
+                <div class="term-badge">హీమోగ్లోబిన్</div>
+                <div class="term-badge">హృదయ స్పందన రేటు</div>
+                <div class="term-badge">ప్లాస్మా</div>
+                <div class="term-badge">రక్త ఫలకికలు</div>
+                <div class="term-badge">నాడీ స్పందన</div>
+                <div class="term-badge">ఎర్ర రక్త కణం</div>
+                <div class="term-badge">దారువు (Xylem)</div>
+                <div class="term-badge">పోషక కణజాలం</div>
+                <div class="term-badge">భాష్పోత్సేకం</div>
+                <div class="term-badge">మూత్రనాళం</div>
+                <div class="term-badge">యూరియా</div>
+                <div class="term-badge">యూరిక్ ఆమ్లం</div>
+                <div class="term-badge">తెల్ల రక్త కణం</div>
+                <div class="term-badge">మూత్రపిండాలు</div>
+            </div>
+        </div>
+
+        <!-- Exercises -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-5);">అభ్యాసాలు (Exercises)</h2>
+            
+            <p><strong>1. విభాగం I లో ఇచ్చిన నిర్మాణాలను విభాగం II లో ఇవ్వబడిన విధులతో సరిపోల్చండి:</strong></p>
+            <table>
+                <thead>
+                    <tr><th>విభాగం I</th><th>విభాగం II</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>(i) పత్ర రంధ్రాలు</td><td>(బి) భాష్పోత్సేకం</td></tr>
+                    <tr><td>(ii) దారువు</td><td>(డి) నీటి రవాణా</td></tr>
+                    <tr><td>(iii) మూల కేశాలు</td><td>(ఎ) నీటి శోషణ</td></tr>
+                    <tr><td>(iv) పోషక కణజాలం</td><td>(ఇ) ఆహార రవాణా</td></tr>
+                </tbody>
+            </table>
+
+            <p><strong>2. ఖాళీలను పూరించండి:</strong></p>
+            <ul>
+                <li>(i) హృదయము లేదా గుండె నుండి రక్తం శరీరంలోని అన్ని భాగాలకు <strong>ధమనుల</strong> ద్వారా రవాణా చేయబడుతుంది.</li>
+                <li>(ii) హిమోగ్లోబిన్ <strong>ఎర్ర రక్త కణాలలో</strong> ఉంటుంది.</li>
+                <li>(iii) ధమనులు మరియు సిరలు <strong>కేశనాళికల</strong> నెట్‌వర్క్ ద్వారా కలుస్తాయి.</li>
+                <li>(iv) హృదయ లయబద్ధ సంకోచ సడలింపులను <strong>హృదయ స్పందన</strong> అంటారు.</li>
+                <li>(v) మానవులలో ప్రధాన విసర్జన ఉత్పత్తి <strong>యూరియా</strong>.</li>
+                <li>(vi) చెమటలో నీరు మరియు <strong>లవణాలు</strong> ఉంటాయి.</li>
+                <li>(vii) మూత్రపిండాలు ద్రవ రూపంలో విసర్జించే వ్యర్థ పదార్థాలను <strong>మూత్రం</strong> అంటారు.</li>
+                <li>(viii) చూషణ ఒత్తిడి వల్ల చెట్లలో నీరు చాలా ఎత్తుకు చేరడం అనేది <strong>భాష్పోత్సేకం</strong> వలన జరుగుతుంది.</li>
+            </ul>
+
+            <p><strong>3. సరైన ఎంపికను ఎంచుకోండి:</strong></p>
+            <ul>
+                <li>(ఎ) మొక్కలలో, నీరు ద్వారా రవాణా చేయబడుతుంది: <strong>(i) దారువు</strong> (ii) పోషక కణజాలం (iii) పత్ర రంధ్రాలు (iv) మూల కేశాలు</li>
+                <li>(బి) మొక్కలను పాలిథిన్ బ్యాగ్‌తో కప్పబడి ఉండటం లో ఉంచడం ద్వారా వేర్ల నుండి నీటి శోషణను పెంచవచ్చు. (లేదా తగిన ఆప్షన్లు చూడండి)</li>
+            </ul>
+
+            <p><strong>4. మొక్క లేదా జంతువులో పదార్థాల రవాణా ఎందుకు అవసరం? వివరించండి.</strong></p>
+            <p class="standard-p">సమాధానం: జీవరాసుల మనుగడకు ఆహారం, నీరు మరియు ఆక్సిజన్ ప్రతి కణానికి చేరాలి. అలాగే వ్యర్థ పదార్థాలను తొలగించగల భాగాలకు రవాణా చేయడానికి పదార్థాల రవాణా అత్యంత అవసరం.</p>
+
+            <p><strong>5. రక్తంలో రక్త ఫలకికలు లేకపోతే ఏమి జరుగుతుంది?</strong></p>
+            <p class="standard-p">సమాధానం: రక్తంలో రక్త ఫలకికలు (Platelets) లేకపోతే, గాయాలైనప్పుడు రక్తం గడ్డకట్టదు. ఫలితంగా అధిక రక్తస్రావం జరిగి ప్రాణాపాయం సంభవించవచ్చు.</p>
+
+            <p><strong>6. పత్ర రంధ్రాలు అంటే ఏమిటి? పత్ర రంధ్రాల రెండు విధులను పేర్కొనండి.</strong></p>
+            <p class="standard-p">సమాధానం: ఆకుల ఉపరితలంపై ఉండే సూక్ష్మ రంధ్రాలను పత్ర రంధ్రాలు అంటారు. విధులు: 1. వాతావరణం నుండి గ్యాస్ మార్పిడి (ఆక్సిజన్, కార్బన్ డై ఆక్సైడ్), 2. భాష్పోత్సేకం ద్వారా నీటిని ఆవిరి రూపంలో విడుదల చేయడం.</p>
+
+            <p><strong>7. భాష్పోత్సేకం ఏదైనా ఉపయోగకరమైన పనిని అందజేస్తుందా? వివరించండి.</strong></p>
+            <p class="standard-p">సమాధానం: అవును. భాష్పోత్సేకం వల్ల ఏర్పడే చూషణ పీడనం వేర్ల నుండి నీటిని మరియు ఖనిజాలను మొక్క పై భాగాలకు లాగడానికి సహాయపడుతుంది. అలాగే ఇది మొక్కను వేడి నుండి కాపాడుతూ చల్లగా ఉంచుతుంది.</p>
+
+            <p><strong>8. రక్తంలోని అంశాలు ఏమిటి?</strong></p>
+            <p class="standard-p">సమాధానం: రక్తంలో ప్లాస్మా (ద్రవం), ఎర్ర రక్త కణాలు (RBC), తెల్ల రక్త కణాలు (WBC) మరియు రక్త ఫలకికలు (Platelets) ఉంటాయి.</p>
+
+            <p><strong>9. శరీరంలోని అన్ని భాగాలకు రక్తం ఎందుకు అవసరం?</strong></p>
+            <p class="standard-p">సమాధానం: శరీర కణాలకు కావలసిన ఆక్సిజన్, పోషక పదార్థాలను అందించడానికి మరియు వ్యర్థ పదార్థాలను విసర్జక భాగాలకు చేరవేయడానికి రక్తం అవసరం.</p>
+
+            <p><strong>10. రక్తం ఎర్రగా కనిపించేలా ఏది చేస్తుంది?</strong></p>
+            <p class="standard-p">సమాధానం: ఎర్ర రక్త కణాలలో ఉండే <strong>హీమోగ్లోబిన్</strong> అనే వర్ణద్రవ్యం రక్తాన్ని ఎర్రటి రంగులో కనిపించేలా చేస్తుంది.</p>
+
+            <p><strong>11. హృదయం పనితీరును వివరించండి.</strong></p>
+            <p class="standard-p">సమాధానం: గుండె నిరంతరం లయబద్ధంగా సంకోచం మరియు సడలింపు చెందడం ద్వారా రక్తాన్ని ధమనుల ద్వారా శరీర భాగాలకు పంపింగ్ చేస్తుంది మరియు సిరల ద్వారా తిరిగి స్వీకరిస్తుంది.</p>
+
+            <p><strong>12. వ్యర్థాలను విసర్జించడం ఎందుకు అవసరం?</strong></p>
+            <p class="standard-p">సమాధానం: కణాలు నిర్వర్తించే క్రియల వల్ల ఏర్పడే వ్యర్థాలు విషపూరితమైనవి. వాటిని శరీరం నుండి తొలగించకపోతే జీవులు అనారోగ్యానికి గురవుతాయి లేదా మరణించవచ్చు.</p>
+
+            <p><strong>13. మానవ విసర్జన వ్యవస్థ యొక్క రేఖాచిత్రాన్ని గీయండి, వివిధ భాగాలను గుర్తించండి.</strong></p>
+            <p class="standard-p">సమాధానం: (విద్యార్థులు పాఠ్యపుస్తకంలోని పటం 7.6 ఆధారంగా మూత్రపిండాలు, మూత్రనాళాలు, మూత్రాశయం మరియు ప్రసేకం భాగాలను గీయాలి).</p>
+        </div>
+
+        <!-- Extended Learning & Did you know -->
+        <div class="card">
+            <h2 style="border-color: var(--accent-4);">విస్తృత అభ్యసనం - కృత్యాలు, ప్రాజెక్టులు & మీకు తెలుసా?</h2>
+            <ul>
+                <li><strong>రక్త వర్గాలు:</strong> రక్త వర్గాలు (A, B, AB, O) మరియు వాటి ప్రాముఖ్యత గురించి తెలుసుకోండి.</li>
+                <li><strong>ECG (ఇసిజి):</strong> వ్యక్తి ఛాతి నొప్పితో బాధపడుతున్నప్పుడు వైద్యులు తీసుకునే ECG గురించి సమాచారాన్ని సేకరించండి.</li>
+            </ul>
+
+            <div class="note-box" style="margin-top: 20px;">
+                <p><strong>మీకు తెలుసా?</strong> రక్తానికి ప్రత్యామ్నాయం లేదు. ప్రజలు శస్త్రచికిత్స లేదా గాయం నుండి రక్తాన్ని కోల్పోతే లేదా వారి శరీరాలు తగినంత రక్తాన్ని ఉత్పత్తి చేయలేకపోతే, స్వచ్ఛంద సేవకులు విరాళంగా ఇచ్చిన రక్తాన్ని మార్పిడి చేయడం ద్వారా రక్తం మార్చడం ఒకే ఒక మార్గం. రక్తదానం చేయడం వల్ల దాతల బలం తగ్గదు.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Dark / Light Mode Toggle Script
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    </script>
+</body>
+</html>
