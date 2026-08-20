@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>చలనము మరియు కాలము — పూర్తి HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mandali&family=Noto+Sans+Telugu:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4f7fb; --card:#ffffff; --text:#172033; --muted:#5d687b;
+  --accent:#2563eb; --accent2:#7c3aed; --border:#dbe3ef;
+  --formula:#fff7ed; --formula-border:#f59e0b; --table-head:#e8f0ff;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+}
+body.dark {
+  --bg:#0b1020; --card:#121a2b; --text:#edf3ff; --muted:#aab6cc;
+  --accent:#60a5fa; --accent2:#a78bfa; --border:#27344d;
+  --formula:#251b0d; --formula-border:#f59e0b; --table-head:#172742;
+  --shadow:0 12px 35px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Mandali","Noto Sans Telugu",sans-serif;line-height:1.95}
+.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 86%,transparent);border-bottom:1px solid var(--border)}
+.nav{max-width:1150px;margin:auto;padding:12px 18px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.brand{font-size:1.15rem;font-weight:800;color:var(--accent)}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button,.pagebtn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:8px 14px;cursor:pointer;font-family:inherit;font-weight:700}
+button:hover,.pagebtn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.container{max-width:1150px;margin:28px auto;padding:0 10px}
+.hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:34px;border-radius:24px;box-shadow:var(--shadow);margin-bottom:22px}
+.hero h1{margin:0 0 8px;font-size:2.25rem;line-height:1.35}
+.hero p{margin:0;opacity:.94}
+.info{margin:18px 0;padding:14px 16px;border:1px dashed var(--border);border-radius:14px;color:var(--muted);background:var(--card)}
+.content{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+.para{margin:0 0 10px;font-size:1.2rem}
+.section{font-size:1.5rem;font-weight:800;color:var(--accent);margin:30px 0 12px;border-left:5px solid var(--accent);padding:4px 0 4px 12px}
+.caption{font-weight:800;color:var(--accent2);background:color-mix(in srgb,var(--accent2) 8%,var(--card));padding:8px 12px;border-radius:10px;margin:16px 0}
+.bullet{margin:8px 0;padding-left:8px}
+.formula{font-weight:800;background:var(--formula);border:1px solid var(--formula-border);padding:13px 16px;border-radius:12px;overflow:auto}
+.term{font-weight:800;color:var(--accent2)}
+.table-wrap{overflow:auto;margin:18px 0 24px;border:1px solid var(--border);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:520px}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:first-child td{font-weight:800;background:var(--table-head);color:var(--accent)}
+tr:last-child td{border-bottom:0}
+.footer{text-align:center;color:var(--muted);padding:30px 10px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.toc a{text-decoration:none;color:var(--accent);border:1px solid var(--border);background:var(--card);padding:7px 11px;border-radius:999px}
+@media(max-width:700px){.hero h1{font-size:1.7rem}.content{padding:18px}body{font-size:16px}}
+@media print{.top,.actions,.search,.info{display:none}body{background:#fff;color:#000}.content,.hero{box-shadow:none;border:0}}
+
+.figure-card{margin:20px 0 26px;padding:16px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 5%,var(--card)),var(--card));box-shadow:var(--shadow)}
+.figure-card .image-box{min-height:220px;border:2px dashed var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;background:color-mix(in srgb,var(--accent) 3%,var(--bg))}
+.figure-card img{max-width:100%;height:auto;display:block;margin:auto;border-radius:12px}
+.figure-card .placeholder{color:var(--muted);font-size:1rem}
+.figure-card .figure-name{margin-top:10px;font-weight:800;color:var(--accent2);font-size:1.05rem}
+.figure-card .file-name{margin-top:5px;font-family:monospace;font-size:.88rem;color:var(--muted);word-break:break-all}
+.figure-card .caption2{margin-top:8px;color:var(--text)}
+.theme-toggle{font-size:1.15rem;padding:8px 12px;min-width:44px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="nav">
+    <div class="brand">📘 చలనము మరియు కాలము</div>
+    <div class="actions">
+      <button class="theme-toggle" onclick="document.body.classList.toggle('dark')" aria-label="Dark / Light Mode" title="Dark / Light Mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>చలనము మరియు కాలము</h1>
+   
+  </section>
+
+
+  <section id="content" class="content">
+<p class="para">6వ తరగతిలో మీరు వివిధ రకాల చలనాల గురించి నేర్చుకున్నారు. ఒక చలనం సరళరేఖా మార్గంలో ఉండవచ్చుని, వృత్తాకారంగా లేదా ఆవర్తనంగా ఉండవచ్చుని తెలుసుకున్నారు. ఈ మూడు రకాల చలనాలను మీరు గుర్తు చేసుకోగలరా?</p>
+<p class="caption">పట్టిక 9.1 వివిధ రకాల చలనాలకు కొన్ని ఉదాహరణలు ఇస్తుంది. ప్రతి సందర్భంలో చలన రకాన్ని గుర్తించండి.</p>
+<p class="caption">పట్టిక 9.1 వివిధ రకాల చలనాలకు కొన్ని ఉదాహరణలు</p>
+<div class="table-wrap"><table><tr><td>చలనానికి ఉదాహరణ</td><td>చలనం రకం (సరళరేఖ వెంబడి / వృత్తాకార/ ఆవర్తన)</td></tr><tr><td>మార్చ్ పాస్ట్ చేస్తున్న సైనికులు</td><td></td></tr><tr><td>తిన్నని రహదారిపై ప్రయాణిస్తున్న ఎద్దుల బండి</td><td></td></tr><tr><td>పరుగు పందెంలో పాల్గొనే ఆటగాడి చేతులు</td><td></td></tr><tr><td>చలనంలో ఉన్న సైకిల్ పెదల్</td><td></td></tr><tr><td>సూర్యుని చుట్టూ భూమి యొక్క చలనం</td><td></td></tr><tr><td>ఊయల చలనం</td><td></td></tr><tr><td>లోలక చలనం</td><td></td></tr></table></div>
+<p class="para">సాధారణంగా కొన్ని వాహనాలు నెమ్మది గానూ, కొన్ని త్వరత్వరగానూ చలించడం మనకు అనుభవమే.</p>
+<p class="section">9.1 నెమ్మది లేదా వేగం</p>
+<p class="para">కొన్ని వాహనాలు ఇతర వాహనాల కంటే వేగంగా చలిస్తాయని మనకు తెలుసు. ఒకే వాహనం వేర్వేరు సమయాల్లో వేగంగా లేదా నెమ్మదిగా కదలవచ్చు. సరళ రేఖ మార్గంలో చలించే పది వస్తువుల జాబితాను రూపొందించండి. నెమ్మదిగా, వేగంగా కదిలే వస్తువుల చలనాలను వేర్వేరు సమూహాలలో ఉంచండి. ఏ వస్తువు నెమ్మడిగా కదులుతుందో, ఏది వేగంగా కదులుతుందో ఎలా నిర్ణయిస్తావు?</p>
+<p class="para">రహదారిపై వాహనాలు ఒకే దిశలో కదులుతుంటే, వాటిలో మిగతా వాటి కంటే ఏది వేగంగా కదులుతుందో మనం సులభంగా చెప్పగలం. రహదారిపై వాహనాల చలనాన్ని ఒకసారి చూద్దాం.</p>
+<p class="section">కృత్యం 9.1</p>
+
+<figure class="figure-card" data-figure="పటం 9.1">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.1.png?raw=true" alt="పటం 9.1 — ఒక రహదారి పై ఒకే దిశ లో చలిస్తున్న వాహనాలు"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.1</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.1 — ఒక రహదారి పై ఒకే దిశ లో చలిస్తున్న వాహనాలు</div>
+  
+</figure>
+<p class="caption">పటం 9.1ని చూడండి. అది ఒకే సమయంలో ఒకే దిశ లో రోడ్డుపై కదులుతున్న కొన్ని వాహనాల స్థానాలను చూపుతుంది. ఇప్పుడు పటం 9.2 ను చూడండి. అది కొంత సమయం తరువాత అవే వాహనాల స్థానాన్ని చూపుతుంది. రెండు పటాలలో మీ పరిశీలనల నుండి ఈ క్రింది ప్రశ్నలకు సమాధానాలను ఇవ్వండి.</p>
+<p class="para">అన్నింటి కంటే ఎక్కువ వేగంగా కదులుతున్న వాహనం ఏది?వాటిలో ఏది అన్నింటి కంటే నెమ్మడిగా కదులుతుంది ?</p>
+<p class="para">నిర్దిష్ట కాల వ్యవధిలో వస్తువులు ప్రయాణించిన దూరం ఏ వస్తువు వేగంగా చలిస్తుందో, ఏది నెమ్మదిగా చలిస్తుందో నిర్ణయించడానికి మనకు సహాయపడుతుంది. ఉదాహరణకు మీరు బస్స్టాండ్ లో మీ స్నేహితుని పంపించడానికి వెళ్లారు అనుకోండి. బస్సు బయలుదేరిన సమయానికే మీరు కూడా సైకిల్ తొక్కడం ప్రారంభించారు అనుకోండి 5 నిమిషాల తరువాత మీరు ప్రయాణించిన దూరం బస్సు ప్రయాణించిన దూరం కంటే చాలా తక్కువగా ఉంటుంది. సైకిల్ కన్నా బస్సు వేగంగా కదులుతుందని చెప్పగలరా? త్వరత్వరగా కదిలే వాహనం అధిక <strong class="term">వడి</strong>తో ప్రయాణిస్తుందని తరచుగా అంటాం.</p>
+<p class="para">100 మీ. పరుగు పందెంలో ఎవరు అత్యధిక <strong class="term">వడి</strong>తో పరుగెడుతున్నారో సులభంగా నిర్ధారించగలము. 100 మీ. దూరాన్ని ఎవరు తక్కువ సమయంలో అధిగమిస్తారో వారు అత్యధిక <strong class="term">వడి</strong> కలిగి ఉంటారు.</p>
+<p class="section">9.2 <strong class="term">వడి</strong></p>
+<p class="para"><strong class="term">వడి</strong> అనే పదం ಬಹುశా మీకు బాగా తెలిసి ఉండవచ్చు. పైన ఇచ్చిన ఉదాహరణలో తక్కువ వ్యవధిలో నిర్దిష్ట దూరాన్ని అధిగమించడాన్ని లేదా నిర్దిష్ట వ్యవధిలో ఎక్కువ దూరం ప్రయాణించడాన్ని అధిక <strong class="term">వడి</strong> గా సూచించాము.</p>
+<p class="para">రెండు లేదా అంతకంటే ఎక్కువ వస్తువులలో ఏది వేగం గా చలిస్తుందో తెలుసుకోవడానికి అత్యంత అనుకూలమైన మార్గం ప్రమాణ <strong class="term">కాలం</strong>లో అవి ప్రయాణించిన దూరాలను పోల్చడం. ఇలా ఒక గంట వ్యవధిలో రెండు బస్సులు ప్రయాణించే దూరాన్ని తెలుసుకుంటే ఏది అధిక <strong class="term">వడి</strong>తో చలిస్తుందో చెప్పవచ్చు. ఒక వస్తువు ఏకాంక <strong class="term">కాలం</strong>లో ప్రయాణించిన మొత్తం దూరాన్ని దాని <strong class="term">వడి</strong> అంటాము.</p>
+<p class="para">ఒక కారు గంటకు 50 కిలో మీటర్ల <strong class="term">వడి</strong>తో కదులుతుందని చెప్పినప్పుడు, అది ఒక గంటలో 50 కిలోమీటర్ల దూరాన్ని ప్రయాణిస్తుందని సూచిస్తుంది. అయితే, ఒక కారు అరుదుగా ఒక గంట పాటు స్థిరమైన <strong class="term">వడి</strong>తో కదులుతుంది. వాస్తవానికి అది నెమ్మదిగా కదలడం ప్రారంభించి, ఆ తరువాత <strong class="term">వడి</strong> పుజుకుంటుంది. కాబట్టి, కారు <strong class="term">వడి</strong> గంటకు 50 కి.మీ. అని చెబితే, సాధారణంగా ఒక గంటలో అది ప్రయాణించిన మొత్తం దూరం 50 కి.మీ గా పరిగణిస్తాము. ఆ గంట సమయంలో కారు స్థిర <strong class="term">వడి</strong>తో చలిస్తుందా లేదా అనే విషయాన్ని పట్టించుకోము.</p>
+<p class="caption">పటం 9.1: ఒక రహదారి పై ఒకే దిశ లో చలిస్తున్న వాహనాలు</p>
+
+<figure class="figure-card" data-figure="పటం 9.2">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.2.png?raw=true" alt="పటం 9.2 — కొంత సమయం తరువాత పటం 9.1 లోని వాహనాల స్థానం"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.2</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.2 — కొంత సమయం తరువాత పటం 9.1 లోని వాహనాల స్థానం</div>
+  
+</figure>
+<p class="caption">పటం 9.2: కొంత సమయం తరువాత పటం 9.1 లోని వాహనాల స్థానం</p>
+<p class="para">ఇచ్చిన చిత్రంలోని టెక్స్ట్ వివరాలు క్రింద ఇవ్వబడ్డాయి:</p>
+<p class="para">వాస్తవానికి ఇక్కడ లెక్కించిన <strong class="term">వడి</strong>, కారు యొక్క <strong class="term">సగటు <strong class="term">వడి</strong></strong>. ఈ పుస్తకంలో <strong class="term">సగటు <strong class="term">వడి</strong></strong> బదులుగా <strong class="term">వడి</strong> అనే పదాన్ని ఉపయోగిస్తాము. ప్రయాణించిన మొత్తం దూరాన్ని, ప్రయాణించడానికి పట్టిన మొత్తం <strong class="term">కాలం</strong>తో భాగిస్తే <strong class="term">వడి</strong> వస్తుంది. కావున,</p>
+<p class="formula"><strong class="term">వడి</strong> = ప్రయాణించిన మొత్తం దూరం / ప్రయాణించడానికి పట్టిన మొత్తం <strong class="term">కాలం</strong></p>
+<p class="para">దైనందిన జీవితంలో మనం ఎక్కువ దూరం లేదా ఎక్కువ <strong class="term">కాలం</strong> పాటు స్థిర<strong class="term">వడి</strong>తో చలించే వస్తువులను అరుదుగా చూస్తాము. సరళరేఖ వెంబడి చలిస్తున్న వస్తువు <strong class="term">వడి</strong> మారుతూ ఉన్నట్లయితే, ఆ చలనాన్ని <strong class="term">అ<strong class="term">సమ చలనం</strong></strong> అంటారు. మరోక వైపు, సరళరేఖ వెంబడి ఒక వస్తువు స్థిర <strong class="term">వడి</strong>తో చలిస్తున్నట్లయితే దానిని <strong class="term">సమ చలనం</strong> అంటారు. ఈ సందర్భంలో <strong class="term">సగటు <strong class="term">వడి</strong></strong>, వాస్తవ <strong class="term">వడి</strong> ఒకేలా ఉంటాయి.</p>
+<p class="para">ఒక వస్తువు నిర్దిష్ట దూరాన్ని, ప్రయాణించడానికి పట్టిన కాలాన్ని కొలవగలిగినపుడే దాని <strong class="term">వడి</strong>ని నిర్ధారించగలము. 6వ తరగతిలో దూరాలను ఎలా కొలోవాలో మీరు నేర్చుకున్నారు. కానీ, మనం కాలాన్ని ఎలా కొలుస్తాము? మనం తెలుసుకుందాం.</p>
+<p class="section">9.3 <strong class="term">కాలం</strong> కొలత:</p>
+<p class="para">మీ దగ్గర గడియారం లేనట్లయితే, ఆ రోజులో అది ఏ సమయమో ఎలా నిర్ణయిస్తారు? కేవలం నీడలు చూసి మన పెద్దలు కాలాన్ని సుమారుగా ఎలా చెప్పేవారో ఎప్పుడైనా ఆలోచించారా?</p>
+<p class="para">ఒక సంవత్సరం లేదా ఒక నెలలోని కాల వ్యవధిని ఎలా కొలుస్తారు?</p>
+<p class="para">మన పూర్వీకులు ప్రకృతిలో పునరావృత్తంగా జరిగే సంఘటనలను గుర్తించి వాటి ఆధారంగా కాలాన్ని కొలిచేవారు. ఉదాహరణకి, ప్రతిరోజు ఉదయం సూర్యుడు ఉదయిస్తున్నాడని వారు కనుగొన్నారు. వరుసగా సంభవించే రెండు సూర్యోదయాల మధ్య కాలాన్ని ఒక రోజుగా పిలిచారు. అదే విధంగా, ఒక అమావాస్య నుండి మరొక అమావాస్య మధ్య గల కాలాన్ని ఒక నెలగా కొలిచారు. సూర్యుని చుట్టూ భూమి ఒక పూర్తి భ్రమణం చేయడానికి పట్టిన కాలాన్ని ఒక సంవత్సరంగా నిర్ధారించారు.</p>
+<p class="para">తరచుగా మనం ఒక రోజు కంటే చాలా తక్కువ కాల వ్యవధిని కొలవవలసి ఉంటుంది. బహుశా గడియారాలు లేదా వాచ్ లు, కాలాన్ని కొలవడానికి ఉపయోగించే అతిసాధారణ పరికరాలు. గడియారాలు, వాచ్ లు కాలాన్ని ఎలా కొలుస్తాయో ఎప్పుడైనా ఆలోచించారా?</p>
+<p class="para">గడియారాలు పని చేసే విధానం కాస్త సంక్లిష్టమైనది. కానీ அவన్నీ కొంత ఆవర్తన చలనాన్ని ఉపయోగించుకుంటాయి. మనకు బాగా తెలిసిన ఆవర్తన చలనాలలో ఒకటి <strong class="term">లఘు లోలకం</strong> చలనం.</p>
+<p class="para">(ఎ) గోడ గడియారం</p>
+<p class="para">(బి) టేబుల్ గడియారం</p>
+<p class="para">(సి) డిజిటల్ గడియారం</p>
+
+<figure class="figure-card" data-figure="పటం 9.3">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.3.png?raw=true" alt="పటం 9.3 — కొన్ని సాధారణ గడియారాలు"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.3</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.3 — కొన్ని సాధారణ గడియారాలు</div>
+  
+</figure>
+<p class="caption">పటం. 9.3 కొన్ని సాధారణ గడియారాలు</p>
+
+<figure class="figure-card" data-figure="పటం 9.4">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.4.png?raw=true" alt="పటం 9.4 — ఒక లఘు లోలకం మరియు దాని వివిధ స్థానాలు"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.4</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.4 — ఒక లఘు లోలకం మరియు దాని వివిధ స్థానాలు</div>
+  
+</figure>
+<p class="caption">పటం 9.4 (ఎ) ఒక <strong class="term">లఘు లోలకం</strong></p>
+<p class="para">(బి) డోలనాలు చేయుచున్న లోలక గోళం యొక్క వివిధ స్థానాలు</p>
+<p class="para"><strong class="term">లఘు లోలకం</strong>లో దృఢమైన ఆధారానికి దారంతో వేలాడదీయబడిన చిన్న లోహపు గోళం లేదా చిన్నరాయి ఉంటుంది. ఆ లోహపు గోళాన్ని లోలకం యొక్క బాబ్ అంటారు.</p>
+<p class="caption">పటం 9.4(ఎ) మధ్యమ స్థానం నందు విరామ స్థానంలో ఉన్న లోలకాన్ని సూచిస్తుంది. లోలక గోళాన్ని నెమ్మదిగా ఒక పక్కకు తీసుకుని వెళ్ళి వదిలితే అది ముందుకు, వెనుకుకు చలించడం ప్రారంభిస్తుంది. పటం 9.4(బి), ముందుకు, వెనుకకు కదిలే <strong class="term">లఘు లోలకం</strong> యొక్క చలనం ఆవర్తన లేదా డోలాయమాన చలనానికి ఒక ఉదాహరణ.</p>
+<p class="para">లోలక గోళం, విరామం స్థానం O నుంచి ప్రారంభమై A వరకు వెళ్ళి అక్కడ నుండి B కు, మరల వెనుకును O వరకు వచ్చినట్లయితే ఒక పూర్తి డోలనం చేసినది అంటాము. లోలక గోళం ఒక అంత్య స్థానం A నుండి మరొక అంత్య స్థానం B కు వెళ్ళి తిరిగి A వరకు వచ్చినప్పుడు కూడా ఒక డోలనం పూర్తి చేసినట్లే. లోలకం ఒక డోలనం పూర్తి చేయడానికి పట్టిన కాలాన్ని <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong> అంటాము.</p>
+<p class="section">కృత్యం 9.2</p>
+<p class="caption">పటం 9.4 లో చూపిన విధంగా దాదాపు గా ఒక మీటరు పొడవు ఉండే దారం లేదా తాడు తో ఒక లఘు లోలాకాన్ని అమర్చండి. దగ్గరలో ఉన్న ఫ్యాన్ లను ఆపండి. లోలక గోళాన్ని విరామ స్థానంలో ఉంచండి. గోళానికి క్రింద ఉన్న నేల పై గాని, వెనుక ఉన్న గోడపై గాని మధ్యమ స్థానాన్ని గుర్తించండి.</p>
+<p class="para">లోలక డోలనావర్తన కాలాన్ని కొలవడానికి మనకు ఒక స్టాప్ వాచ్ కావాలి. స్టాప్ వాచ్ అందుబాటులో లేనట్లయితే, టేబుల్ గడియారం లేదా చేతి గడియారాన్ని కూడా ఉపయోగించవచ్చు.</p>
+<p class="para">లోలకం లో చలాన్ని కలిగించడానికి గోళాన్ని పట్టుకుని, ఒక వైపుకు లాగి వదలాలి.గోళం స్థానభ్రంశం చెందేటప్పుడు దారం బిగుతుగా ఉండేలా చూడండి. బాబ్ ను స్థానభ్రంశం చెందిన స్థానం నుండి విడుదల చేయండి. బాబ్ ను విడుదల చేసిన తరువాత దానిని నెట్టరాదు అని గుర్తుంచుకోండి. బాబ్ మధ్యమస్థానంలో ఉన్న పుడు సమయాన్ని నమోదు చేయండి. అంతిమ స్థానంలో ఉన్నపుడు కూడా సమయాన్ని నమోదు చేయవచ్చు. లోలకం 20 డోలనాలు చేయుడానికి పట్టిన కాలాన్ని కొలవండి.</p>
+<p class="para">మీ పరిశీలనలను పట్టిక 9.2 నందు నమోదు చేయండి. పట్టికలో చూపబడిన మొదటి పరిశీలన కేవలం నమూనా మాత్రమే. మీ పరిశీలన దీనికి భిన్నంగా ఉండవచ్చు. ఈ కృత్యాన్ని మరికొన్నిసార్లు చేసి మీ పరిశీలనలను నమోదు చేయండి. 20 డోలనాలు చేయడానికి పట్టిన కాలాన్ని 20 తో భాగించడం ద్వారా ఒక డోలనం చేయడానికి పట్టే <strong class="term">కాలం</strong> లేదా డోలనావర్తన కాలాన్ని కనుగొనవచ్చు.</p>
+<p class="para">మీ లోలకం యొక్క <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong> ప్రతి సందర్భంలోనూ దాదాపు ఒకేలా ఉందా?</p>
+<p class="para">ప్రారంభ స్థానభ్రంశంలో స్వల్ప మార్పు లోలకపు డోలనావర్తన కాలాన్ని ప్రభావితం చేయదని గమనించండి.</p>
+<p class="para">ఈ రోజుల్లో చాలా గడియారాలు, వాచ్ లు ఒకటి లేదా అంతకంటే ఎక్కువ ఘటాలు ఉన్న విద్యుత్ వలయాలను కలిగి ఉంటున్నాయి.</p>
+<p class="caption">పట్టిక 9.2 సామాన్య లోలక <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong>.</p>
+<p class="formula">దారం పొడవు = 100 సెం.మీ.</p>
+<div class="table-wrap"><table><tr><td>వరుస సంఖ్య</td><td>20 డోలనాలు చేయడానికి పట్టిన <strong class="term">కాలం</strong></td><td><strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong></td></tr><tr><td>1.</td><td>42</td><td>2.1</td></tr><tr><td>2.</td><td></td><td></td></tr><tr><td>3.</td><td></td><td></td></tr></table></div>
+<p class="para">వీటిని <strong class="term">క్వార్ట్జ్ గడియారాలు</strong> అంటారు. పూర్వకాలపు గడియారాల కంటే <strong class="term">క్వార్ట్జ్ గడియారాలు</strong> తెలిపే సమయం ఖచ్చితమైనది.</p>
+<p class="para"><strong class="term">కాలం</strong> మరియు <strong class="term">వడి</strong>ల ప్రమాణాలు</p>
+<p class="para">కాలానికి ప్రాథమిక ప్రమాణం <strong class="term">సెకను</strong>. దాని సంకేతం s. కాలానికి పెద్ద ప్రమాణాలు నిమిషాలు(ని) మరియు గంటలు(గం). ఈ ప్రమాణాలు ఒకదానితో ఒకటి ఎలాంటి సంబంధాన్ని కలిగి ఉంటాయో మీకు తెలుసు.</p>
+<p class="para"><strong class="term">వడి</strong>కి ప్రాథమిక ప్రమాణం ఏమై ఉంటుంది?</p>
+<p class="para"><strong class="term">వడి</strong> అనగా దూరం/ <strong class="term">కాలం</strong>, కావున <strong class="term">వడి</strong>కి ప్రాథమిక ప్రమాణం <strong class="term">మీ/సె</strong>. అదే కాక <strong class="term">వడి</strong>ని మీ/ని లేదా కి.మీ/గం అనే ఇతర ప్రమాణాలలో కూడా తెలియజేయవచ్చును.</p>
+<p class="para">అన్ని ప్రమాణాల గుర్తులను ఏక వచనలోనే వ్రాయాలని గుర్తుంచుకోండి. ఉదాహరణకు 50 కి.మీ అని 8సెం.మీ అని రాస్తాము అంతేగాని 50 కి.మీలు, 8సెం.మీలు అని వ్రాయకూడదు.</p>
+<p class="para">భోజో ఒక రోజులో ఎన్ని సెకండ్లు ఉంటాయో ఒక సంవత్సరంలో ఎన్ని గంటలు ఉంటాయో అని ఆలోచిస్తున్నాడు. అతనికి సహాయం చేయగలవా?</p>
+<p class="para">ఇచ్చిన లోలకం యొక్క <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong> స్థిరంగా ఉంటుందని కనుగొనడం గురించి ఆసక్తికరమైన కథనం ఉంది. ప్రముఖ శాస్త్రవేత్త గెలీలియో గెలీలి (క్రీ.శ 1564-1642) పేరు మీరు విని ఉండవచ్చు, ఒకప్పుడు గెలీలియో ఒక చర్చిలో కూర్చున్నాడు. గొలుసుతో పైకప్పు నుండి వేలాడదీయబడిన దీపం ఒకవైపు నుండి మరొక వైపుకు నెమ్మదిగా కదులుతున్నట్లు అతను గమనించాడు. దీపం ఒక డోలనం పూర్తి చేసిన కాలవ్యవధిలో అతని నాడి ప్రతిసారి అదే సంఖ్యలో కొట్టుకోవడం గమనించి అతను ఆశ్చర్యపోయాడు. గెలీలియో తన పరిశీలనలను ధృవీకరించడానికి వివిధ లోలకాలతో ప్రయోగాలు చేశాడు. నిర్దిష్ట పొడవు గల లోలకం ఒక డోలనాన్ని పూర్తి చేయడానికి ఎల్లప్పుడూ ఒకే సమయాన్ని తీసుకుంటుందని అతను కనుగొన్నాడు. ఈ పరిశీలన లోలక గడియారాల అభివృద్ధికి దారితీసింది లోలక గడియారాలను మెరుగుపరచి వైండింగ్ గడియారాలు, చేతి గడియారాలు తయారు చేశారు.</p>
+<p class="para">అవసరాన్ని బట్టి <strong class="term">కాలం</strong> యొక్క వివిధ ప్రమాణాలు ఉపయోగిస్తాము. ఉదాహరణకు, మీ వయస్సును రోజులు లేదా గంటలలో కాకుండా సంవత్సరాలలో వ్యక్తీకరించడం సౌకర్యంగా ఉంటుంది. అదేవిధంగా, మీ ఇంటి నుండి పాఠశాలకు చేరడానికి మీరు తీసుకున్న సమయాన్ని సంవత్సరాలలో వ్యక్తీకరించడం తెలివైన పని కాదు.</p>
+<p class="para">ఒక <strong class="term">సెకను</strong> కాల వ్యవధి ఎంత చిన్నది లేదా పెద్దది? “రెండు వేల ఒకటి” అని బిగ్గరగా చెప్పడానికి పట్టే సమయం ఒక <strong class="term">సెకను</strong> కు దగ్గర గా ఉంటుంది. “రెండు వేల ఒకటి” నుండి “రెండు వేల పది” వరకు బిగ్గరగా లెక్కించడం ద్వారా దాన్ని ధృవీకరించండి. విశ్రాంతిగా ఉన్న సాధారణ ఆరోగ్యవంతమైన పెద్దల నాడి ఒక నిమిషంలో 72 సార్లు కొట్టుకుంటుంది, అంటే 10 సెకన్లలో 12 సార్లు. పిల్లలకు ఇది కొంచెం ఎక్కువగా ఉండవచ్చు.</p>
+<p class="para">లోలకం గడియారాలు అందుబాటులో లేనప్పుడు సమయాన్ని ఎలా కొలిచేవారు అని పహేలీ ఆశ్చర్యపోయింది.</p>
+<p class="para">లోలక గడియారాలు ప్రాచుర్యంలోకి రాకముందు ప్రపంచంలోని వివిధ ప్రాంతాలలో సమయాన్ని కొలిచే పలు పరికరాలు ఉపయోగించబడ్డాయి. సౌరగడియారాలు, నీటి గడియారాలు మరియు ఇసుక గడియారాలు అటువంటి పరికరాలకు కొన్ని ఉదాహరణలు. ఈ పరికరాల యొక్క వివిధ నమూనాలు ప్రపంచంలోని వివిధ ప్రాంతాల్లో అభివృద్ధి చేయబడ్డాయి (పటం. 9.5)</p>
+<p class="section">9.4 <strong class="term">వడి</strong>ని కొలవడం</p>
+<p class="para"><strong class="term">కాలం</strong> మరియు దూరాన్ని ఎలా కొలోవాలో నేర్చుకున్న తరువాత, మీరు ఒక వస్తువు యొక్క <strong class="term">వడి</strong> ని లెక్కించవచ్చు. నేల మీద కదులుతున్న ఒక బంతి <strong class="term">వడి</strong> ని మనం కనుగొందాం.</p>
+<p class="section">కృత్యం 9.3</p>
+<p class="para">సుద్ద పొడి లేదా సున్నంతో నేలపై ఒక సరళ రేఖను గీచి మీ స్నేహితులలో ఒకరిని దాని నుండి 1 నుండి 2 మీటర్ల దూరంలో నిలబడమని చెప్పండి. రేఖకు లంబ దిశలో నేల మీద ఒక బంతి ని సున్నితం గా దొర్లించమని మీ స్నేహితుడికి చెప్పండి. బంతి రేఖను దాటిన సమయం మరియు నిశ్చలస్థితికి వచ్చినప్పుడు సమయాన్ని నమోదు చేయండి. పటం(9.6)బంతి విరామస్థితికి రావడానికి ఎంత సమయం పడుతుంది?</p>
+<p class="para">సాధారణంగా అందుబాటులో ఉండే గడియారాలు మరియు చేతి గడియారాలతో కొలవగల అతి చిన్న కాల వ్యవధి ఒక <strong class="term">సెకను</strong>. అయితే, ఇప్పుడు <strong class="term">సెకను</strong> కంటే తక్కువ కాల వ్యవధిని కొలవగల ప్రత్యేక గడియారాలు అందుబాటులో ఉన్నాయి. ఇటువంటి కొన్ని గడియారాలు <strong class="term">సెకను</strong>లో ఒక మిలియన్ వంతు ఇంకా బిలియన్ వంతు కూడా కొలవగలవు. మైక్రోసెకండ్ మరియు నానోసెకండ్ వంటి పదాలను వినే ఉంటారు. ఒక మైక్రోసెకన్ <strong class="term">సెకను</strong>లో ఒక మిలియన్ వంతు. నానోసెకన్ అనేది <strong class="term">సెకను</strong>లో బిలియన్ వంతు. అటువంటి చిన్న కాల వ్యవధిని కొలిచే గడియారాలను శాస్త్రీయ పరిశోధన కోసం ఉపయోగిస్తారు. క్రీడలలో ఉపయోగించే కాలాన్ని కొలిచే పరికరాలు <strong class="term">సెకను</strong>లో పదవ వంతు లేదా వందవ వంతు కాలవ్యవధిని కొలవగలవు. మరోవైపు, చారిత్రక సంఘటనల కాలాలు శతాబ్దాలు లేదా సహస్రాబ్దాలు గా చెబుతారు. నక్షత్రాలు మరియు గ్రహాల వయస్సు తరచుగా బిలియన్ల సంవత్సరాలలో తెలియజేస్తారు. మనం అనుసరించవలసిన కాల వ్యవధిని ఊహించగలరా?</p>
+<p class="para">బంతి రేఖను దాటిన బిందువు నుండి అది విరామ స్థానానికి వచ్చిన బిందువు మధ్య దూరాన్ని కొలవండి. మీరు స్కేలు లేదా కొలత టేపును ఉపయోగించవచ్చు. వివిధ సమూహాలతో ఇదే కృత్యాన్ని మరలా చేయానివ్వండి. పట్టిక 9.3లో కొలతలను నమోదు చేయండి. ప్రతి సందర్భంలో బంతి <strong class="term">వడి</strong> ని లెక్కించండి.</p>
+<p class="para">నీవు ఇప్పుడు నీ నడక లేదా సైక్లింగ్ <strong class="term">వడి</strong> ని నీ స్నేహితుల <strong class="term">వడి</strong> తో పోల్చవచ్చు. మీరు మీ ఇంటి నుండి లేదా మరేదైనా స్థానం నుండి మీ పాఠశால దూరాని తెలుసుకోవాలి. మీలో ప్రతి ఒక్కరూ ఆ దూరాన్ని చేరుకోవడానికి పట్టిన కాలాన్ని మరియు <strong class="term">వడి</strong> ని కొలవవచ్చు. మీలో ఎవరు అత్యధిక <strong class="term">వడి</strong>ని కలిగి ఉన్నారో తెలుసుకోవడం ఆసక్తికరంగా ఉంటుంది. కొన్ని</p>
+
+<figure class="figure-card" data-figure="పటం 9.5">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.5.png?raw=true" alt="పటం 9.5 — కాలాన్ని కొలిచే కొన్ని పురాతన పరికరాలు"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.5</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.5 — కాలాన్ని కొలిచే కొన్ని పురాతన పరికరాలు</div>
+  
+</figure>
+<p class="caption">పటం 9.5 కాలాన్ని కొలిచే కొన్ని పురాతన పరికరాలు</p>
+
+<figure class="figure-card" data-figure="పటం 9.6">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.6.png?raw=true" alt="పటం 9.6 — బంతి వడిని కొలవడం"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.6</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.6 — బంతి వడిని కొలవడం</div>
+  
+</figure>
+<p class="caption">పటం 9.6 బంతి <strong class="term">వడి</strong>ని కొలవడం</p>
+<p class="caption">పట్టిక 9.3 కదులుతున్న బంతి ప్రయాణించిన దూరం మరియు <strong class="term">కాలం</strong></p>
+<div class="table-wrap"><table><tr><td>సమూహం పేరు</td><td>బంతి కదిలిన దూరం (మీ)</td><td>తీసుకున్న సమయం (సె)</td><td><strong class="term">వడి</strong> = దూరం/<strong class="term">కాలం</strong>(<strong class="term">మీ/సె</strong>)</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table></div>
+<p class="para">జీవుల వేగం పట్టిక 9.4 నందు కి.మీ/గం లో ఇవ్వబడింది. నీ అంతట నువ్వు <strong class="term">వడి</strong>ని <strong class="term">మీ/సె</strong>. లో లెక్కించవచ్చు.రాకెట్లు, భూమి యొక్క కక్ష్యలోకి పంపే ఉపగ్రహాలు, తరచుగా 8 కి.<strong class="term">మీ/సె</strong>. వరకు <strong class="term">వడి</strong> ని చేరుకుంటాయి. మరోక వైపు తాబేలు 8 సెం.<strong class="term">మీ/సె</strong> <strong class="term">వడి</strong> తో మాత్రమే కదలగలదు. తాబేలు <strong class="term">వడి</strong>తో పోల్చినప్పుడు రాకెట్ ఎంత వేగవంతమైందో లెక్కించగలరా?</p>
+<p class="para">మీరు ఒక వస్తువు యొక్క <strong class="term">వడి</strong> ని తెలుసుకున్నట్లయితే, నిర్దిష్ట సమయంలో అది కదిలిన దూరాన్ని మీరు కనుగొనవచ్చు. మీరు చేయాల్సిందల్లా, <strong class="term">వడి</strong> ని <strong class="term">కాలం</strong> తో గుణించడమే. కాబట్టి ప్రయాణించిన దూరం = <strong class="term">వడి</strong> × <strong class="term">కాలం</strong></p>
+<p class="para">నిర్దిష్ట <strong class="term">వడి</strong> తో ప్రయాణించే ఒక వస్తువు, ఒక దూరాన్ని చేరడానికి పట్టిన కాలాన్ని కూడా కనుగొనవచ్చు.</p>
+<p class="formula">$$\text{<strong class="term">కాలం</strong>} = \frac{\text{దూరం}}{\text{<strong class="term">వడి</strong>}}$$</p>
+<p class="para">వేగాన్ని కొలిచే పరికరం ఏదైనా ఉందా అని భూజో తెలుసుకోవాలనుకుంటున్నాడు.</p>
+<p class="para">స్కూటర్ లేదా మోటార్ సైకిల్ పైన ఒక మీటర్ బిగించి ఉండడం మీరు చూసే ఉంటారు. అదేవిధంగా కారు, బస్సు ఇంకా ఇతర వాహనాల డాష్ బోర్డులపై మీటర్లను చూసే ఉంటారు. పటం 9.7 ఒక కారు డాష్ బోర్డును సూచిస్తుంది. ఆ మీటర్ యొక్క ఒక మూలన కి.మీ/గం.అని వ్రాయబడి ఉండటాన్ని గమనించండి. దీనిని <strong class="term">స్పీడోమీటర్</strong> అంటారు.</p>
+<p class="caption">పట్టిక 9.4 కొన్ని జంతువులు పొందగలిగే అత్యంత వేగం</p>
+<div class="table-wrap"><table><tr><td>క్ర . సం</td><td>జీవి పేరు</td><td>కి.మీ/గం లో <strong class="term">వడి</strong></td><td>కి.మీ/గం లో <strong class="term">వడి</strong></td><td><strong class="term">మీ/సె</strong> లలో <strong class="term">వడి</strong></td><td><strong class="term">మీ/సె</strong> లలో <strong class="term">వడి</strong></td></tr><tr><td>1.</td><td>గద్ద</td><td>320</td><td>320</td><td>$\frac{320 \times 1000}{60 \times 60}$</td><td>$\frac{320 \times 1000}{60 \times 60}$</td></tr><tr><td>2.</td><td>చిరుత</td><td>112</td><td>112</td><td></td><td></td></tr><tr><td>3.</td><td>నీలం చేప</td><td>40 – 46</td><td>40 – 46</td><td></td><td></td></tr><tr><td>4.</td><td>కుందేలు</td><td>56</td><td>56</td><td></td><td></td></tr><tr><td>5.</td><td>ఉడుత</td><td>19</td><td>19</td><td></td><td></td></tr><tr><td>6.</td><td>ఎలుక</td><td>11</td><td>11</td><td></td><td></td></tr><tr><td>7.</td><td>40</td><td>40</td><td></td><td></td></tr><tr><td>8.</td><td>నేల తాబేలు</td><td>0.27</td><td>0.27</td><td></td><td></td></tr><tr><td>9.</td><td>నత్త</td><td>0.05</td><td>0.05</td><td></td><td></td></tr></table></div>
+<p class="para">పైన అందించిన చిత్రాలలోని తెలుగు పాఠ్యభాగం (టెక్స్ట్) వివరాలు క్రింద ఇవ్వబడ్డాయి:</p>
+<p class="caption">పటం.9.7 కారు యొక్క డాష్ బోర్డు</p>
+<p class="para">ఇది కి.మీ/గం. లో <strong class="term">వడి</strong>ని నేరుగా నమోదు చేస్తుంది. వాహనాలు ప్రయాణించిన దూరాన్ని కొలవడానికి మరొక మీటర్ ఉంటుంది. దీనినే <strong class="term">ఓడోమీటర్</strong> అంటారు.</p>
+<p class="para">పాఠశాల విహారయాత్రకు వెళుతున్నప్పుడు, ప్రతి 30 నిమిషాలకు ఒకసారి, ప్రయాణం ముగిసే వరకు బస్సు <strong class="term">ఓడోమీటర్</strong>లో రీడింగ్‌ని గమనించాలని పహేలీ నిర్ణయించుకున్నది. తరువాత ఆమె తన రీడింగ్‌లను టేబుల్ 9.5లో నమోదు చేసింది.</p>
+<p class="para">స్కూల్ నుండి పిక్నిక్ స్పాట్ ఎంత దూరంలో ఉందో చెప్పగలరా? మీరు బస్సు <strong class="term">వడి</strong> ని లెక్కించగలరా? భూజో పట్టిక ని చూస్తూ, పహేలీని ఉదయం 9:45 వరకు వారు ఎంత దూరం ప్రయాణించారో చెప్పగలవా అని అడిగాడు. ఈ ప్రశ్నకు పహేలీ దగ్గర సమాధానం లేదు. వారు తమ టీచర్ వద్దకు వెళ్లారు. ఈ సమస్యను పరిష్కరించడానికి <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ను గీయడం ఒక మార్గం అని ఆమె వారికి చెప్పింది. అటువంటి గ్రాఫ్ ఎలా గీయవచ్చో తెలుసుకుందాం.</p>
+<p class="section">9.5 <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong></p>
+<p class="para">వార్తాపత్రికలు, మ్యాగజైన్లు మొదలైనవి సమాచారాన్ని ఆసక్తికరంగా ప్రదర్శించడానికి వివిధ రకాల గ్రాఫ్‌లో సూచించుటను మీరు చూసి ఉండవచ్చు.</p>
+<p class="caption">పట్టిక 9.5 ప్రయాణంలోని వివిధ సమయాల్లో <strong class="term">ఓడోమీటర్</strong> రీడింగ్</p>
+<div class="table-wrap"><table><tr><td><strong class="term">కాలం</strong> (AM)</td><td><strong class="term">ఓడోమీటర్</strong> రీడింగ్</td><td>ప్రారంభ స్థానం నుండి దూరం</td></tr><tr><td>8:00 AM</td><td>36540 కి.మీ</td><td>0 కి.మీ</td></tr><tr><td>8:30 AM</td><td>36560 కి.మీ</td><td>20 కి.మీ</td></tr><tr><td>9:00 AM</td><td>36580 కి.మీ</td><td>40 కి.మీ</td></tr><tr><td>9:30 AM</td><td>36600 కి.మీ</td><td>60 కి.మీ</td></tr><tr><td>10:00 AM</td><td>36620 కి.మీ</td><td>80 కి.మీ</td></tr></table></div>
+
+<figure class="figure-card" data-figure="పటం 9.8">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.8.png?raw=true" alt="పటం 9.8 — ఒక టీమ్ ప్రతి ఓవర్లో స్కోర్ చేసిన పరుగులను చూపే దిమ్ము రేఖా చిత్రం"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.8</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.8 — ఒక టీమ్ ప్రతి ఓవర్లో స్కోర్ చేసిన పరుగులను చూపే దిమ్ము రేఖా చిత్రం</div>
+  
+</figure>
+<p class="caption">పటం 9.8 ఒక టీమ్ ప్రతి ఓవర్‌లో స్కోర్ చేయబడిన పరుగులను చూపే దిమ్ము రేఖా చిత్రం</p>
+<p class="caption">పటం 9.8లో చూపడిన ఇటువంటి గ్రాఫ్ ను దిమ్ము రేఖా చిత్రం అంటారు. మరోక విధంగా చూపే గ్రాఫ్ ను పై చార్ట్ అంటారు. (పటం 9.9). పటం 9.10లో చూపిన గ్రాఫ్ లైన్ గ్రాఫ్ కు ఒక ఉదాహరణ. <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ఒక లైన్ గ్రాఫ్. అటువంటి గ్రాఫ్ ను తయారుచేయడం నేర్చుకుందాం.</p>
+
+<figure class="figure-card" data-figure="పటం 9.9">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.9.png?raw=true" alt="పటం 9.9 — గాలి సంఘటనమును చూపే పై చార్ట్"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.9</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.9 — గాలి సంఘటనమును చూపే పై చార్ట్</div>
+ 
+</figure>
+<p class="caption">పటం 9.9 గాలి సంఘటనమును చూపే పై చార్ట్</p>
+
+<figure class="figure-card" data-figure="పటం 9.10">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.10.png?raw=true" alt="పటం 9.10 — ఒక వ్యక్తి వయసుతో పాటు అతని బరువులో మార్పు"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.10</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.10 — ఒక వ్యక్తి వయసుతో పాటు అతని బరువులో మార్పు</div>
+ 
+</figure>
+<p class="caption">పటం 9.10 ఒక వ్యక్తి వయసు తో పాటు అతని బరువు లో మార్పు ను సూచించే రేఖా చిత్రం.</p>
+<p class="para">ఒక గ్రాఫ్ కాగితాన్ని తీసుకోండి. దానిపై పటం 9.11 లో చూపిన విధంగా ఒక దానికొకటి లంబంగా ఉండే రెండు రేఖలను గీయండి. క్షితిజ సమాంతర రేఖను $XOX^\prime$ గా గుర్తించండి. దీనిని x-అక్షము అంటారు. అదేవిధంగా నిలువు రేఖను $YOY^\prime$ గుర్తించండి. దీనిని y-అక్షం అంటారు. $XOX^\prime$ మరియు $YOY^\prime$ ల ఖండన బిందువును మూల బిందువు O అంటారు. ఏ రెండు రాశుల మధ్య అయితే గ్రాఫ్ గీయబడిందో అవి ఈ రెండు అక్షాల పై చూపబడతాయి. ధన విలువలను OX వెంబడి x-అక్షం పై సూచిస్తాము. అదే విధంగా y- అక్షం పై ధన విలువలను OY వెంబడి సూచిస్తాము. ఈ అధ్యాయంలో మనం రాశుల ధన విలువలను మాత్రమే పరిగణన లోనికి తీసుకుంటాము.</p>
+
+<figure class="figure-card" data-figure="పటం 9.11">
+  <div class="image-box">
+    <img src="https://github.com/Rajatalluri91/7th-Class-Science/blob/main/7.9.11.png?raw=true" alt="పటం 9.11 — గ్రాఫ్ కాగితంపై X-అక్షం మరియు Y-అక్షం"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.11</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.11 — గ్రాఫ్ కాగితంపై X-అక్షం మరియు Y-అక్షం</div>
+  
+</figure>
+<p class="caption">పటం 9.11 గ్రాఫ్ కాగితం పై X-అక్షం మరియు Y-అక్షం</p>
+<p class="para">కాబట్టి, మనము పటం 9.11 లో చూపిన గ్రాఫ్ యొక్క షేడ్ చేయబడిన భాగాన్ని మాత్రమే ఉపయోగిస్తాము.</p>
+<p class="para">భూజో మరియు పహేలీ ఒక కారు ప్రయాణించిన దూరాన్ని మరియు అందుకు పట్టిన కాలాన్ని కనుగొన్నారు. ఆ దత్తాంశం పట్టిక 9.6లో చూపబడింది.</p>
+<p class="caption">పట్టిక 9.6 ఒక కారు చలనం</p>
+<div class="table-wrap"><table><tr><td>వ.సం.</td><td><strong class="term">కాలం</strong>(ని॥లు)</td><td>దూరం(కి.మీ)</td></tr><tr><td>1.</td><td>0</td><td>0</td></tr><tr><td>2.</td><td>1</td><td>1</td></tr><tr><td>3.</td><td>2</td><td>2</td></tr><tr><td>4.</td><td>3</td><td>3</td></tr><tr><td>5.</td><td>4</td><td>4</td></tr><tr><td>6.</td><td>5</td><td>5</td></tr></table></div>
+<p class="para">మీరు దిగువ ఇచ్చిన సోపానాలు అనుసరించడం ద్వారా గ్రాఫ్‌ను గీయవచ్చు:</p>
+<p class="para">రెండు అక్షాలను సూచించే రెండు లంబ రేఖలను గీయండి. వాటిని పటం 9.11 లో ఉన్నట్లుగా OX, OY గా గుర్తించండి.</p>
+<p class="para">x-అక్షం మీద మరియు y-అక్షం మీద చూపవలసిన భౌతిక రాశిని నిర్ణయించండి.</p>
+<p class="para">ఈ సందర్భంలో మనము x-అక్షంపై కాలాన్ని మరియు y-అక్షంపై దూరాన్ని చూపించండి.</p>
+<p class="para">గ్రాఫ్‌లో దూరాన్ని సూచించడానికి ఒక స్కేలును మరియు కాలాన్ని సూచించడానికి మరొక స్కేలును ఎంచుకోండి. కారు యొక్క చలనం కోసం స్కేలు ను ఈవిధంగా తీసుకోవచ్చును.</p>
+<p class="formula"><strong class="term">కాలం</strong>: 1 ని. = 1 సెం.మీ.</p>
+<p class="formula">దూరం: 1 కి.మీ = 1 సెం.మీ</p>
+<p class="para">మీరు ఎంచుకున్న స్కేల్ ప్రకారం సంబంధిత అక్షాలపై <strong class="term">కాలం</strong> మరియు దూరాల విలువలను గుర్తించండి. కారు ప్రయాణించిన కాలాన్ని 1 ని., 2 ని., ... గా మూల బిందువు O నుండి x-అక్షం మీద గుర్తించండి. అదేవిధంగా, y-అక్షం మీద 1 కి.మీ, 2 కి.మీ... దూరాన్ని గుర్తించండి (పటం 9.12 )</p>
+<p class="para">ఇప్పుడు మీరు దూరం మరియు <strong class="term">కాలం</strong> విలువ ల జతలను సూచించడానికి గ్రాఫ్ పేపరుపై బిందువులను గుర్తించాలి. పట్టిక 9.6 లో వ.సం. 1 వద్ద నమోదు చేయబడిన పరిశీలన ప్రకారం, 0 నిమిషాల సమయంలో ప్రయాణించిన దూరం కూడా సున్నాగా ఉంటుంది. గ్రాఫ్‌లోని ఈ విలువ ల జతకు సంబంధించిన బిందువు మూల బిందువే అవుతుంది. 1 నిమిషం తర్వాత, కారు 1 కి.మీ దూరం కదిలింది. ఈ విలువ ల జతను గుర్తించడానికి x-అక్షంపై 1 నిమిషాన్ని సూచించే బిందువు కోసం చూడండి. ఈ బిందువు వద్ద y-అక్షానికి సమాంతరంగా ఒక రేఖను గీయండి. y-అక్షం మీద 1 కి.మీ దూరాన్ని సూచించే బిందువు నుండి x-అక్షానికి సమాంతరంగా ఒక రేఖను గీయండి. గ్రాఫ్ పై ఈ రెండు రేఖల ఖండన బిందువు ఈ విలువ ల జతను సూచిస్తుంది (పటం 9.12). అదే విధంగా, వివిధ విలువ ల జతలను గ్రాఫ్ కాగితంపై గుర్తించాలి.</p>
+
+<figure class="figure-card" data-figure="పటం 9.12">
+  <div class="image-box">
+    <img src="images/patam_9_12_car_points.png" alt="పటం 9.12 — వివిధ సమయాల్లో కారు స్థానాలకు సంబంధించిన బిందువుల జతలు"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.12</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.12 — వివిధ సమయాల్లో కారు స్థానాలకు సంబంధించిన బిందువుల జతలు</div>
+  
+</figure>
+<p class="caption">పటం 9.12 వివిధ సమయాల్లో కారు యొక్క స్థానాలకు సంబంధించిన బిందువుల జతలను గ్రాఫ్‌లో చూపుతుంది.</p>
+
+<figure class="figure-card" data-figure="పటం 9.13">
+  <div class="image-box">
+    <img src="images/patam_9_13_distance_time_graph.png" alt="పటం 9.13 — కారు చలనానికి సంబంధించిన దూరం-కాలం గ్రాఫ్"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.13</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.13 — కారు చలనానికి సంబంధించిన దూరం-కాలం గ్రాఫ్</div>
+  
+</figure>
+<p class="caption">పటం 9.13లో చూపిన విధంగా గ్రాఫ్‌లోని అన్ని బిందువులను కలపండి. ఇది ఒక సరళ రేఖ. ఇది కారు చలనానికి సంబంధించిన <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong>.</p>
+<p class="para"><strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ఒక సరళ రేఖ అయితే, అది వస్తువు స్థిరమైన <strong class="term">వడి</strong>తో చలిస్తున్నట్లు సూచిస్తుంది. వస్తువు యొక్క <strong class="term">వడి</strong> మారుతూ ఉన్నట్లయితే, గ్రాఫ్ మరేదైనా ఆకారంలో ఉండవచ్చు.</p>
+<p class="para">సాధారణంగా, పటం 9.12 మరియు 9.13లో ఇవ్వబడిన ఉదాహరణలో లాగా స్కేల్ ఎంపిక అంత సులభం కాదు. x-అక్షం మరియు y-అక్షంపై కావలసిన రాశులను సూచించడానికి మనం రెండు వేర్వేరు స్కేల్లను ఎంచుకోవలసి ఉంటుంది. ఒక ఉదాహరణతో ఈ ప్రక్రియను అర్థం చేసుకోడానికి ప్రయత్నిద్దాం.</p>
+<p class="para">పహేలీ మరియు ఆమె స్నేహితులను విహారయాత్రకి తీసుకెళ్లిన బస్సు చలనాన్ని మరోసారి పరిశీలిద్దాం. బస్సు ప్రయాణించిన దూరం మరియు అందుకు పట్టిన <strong class="term">కాలం</strong> పట్టిక 9.5లో చూపబడింది. బస్సు ప్రయాణించిన మొత్తం దూరం 80 కి.మీ. మీరు 1 కి.మీ 1 సెం.మీ స్కేలు ను ఎంచుకుంటే, 80 సెం.మీ పొడవు గల అక్షాన్ని గీయాలి. కాగితంపై ఇది సాధ్యం కాదు. మరోవైపు, 10 కి.మీ 1 సెం.మీ స్కేలుకు 8 సెం.మీ పొడవు గల అక్షం మాత్రమే అవసరం. ఈ స్కేలుకు చాలా సౌకర్యవంతంగా ఉంటుంది. అయితే, ఈ గ్రాఫ్, గ్రాఫ్ పేపర్లో కొంత భాగాన్ని మాత్రమే ఆక్రమిస్తుంది. గ్రాఫ్‌ను గీయడానికి సరైనా స్కేలును ఎంచుకునేప్పుడు గుర్తుంచుకోవవలసిన కొన్ని అంశాలు:</p>
+<p class="para">ప్రతి రాశి యొక్క అత్యధిక మరియు అత్యల్ప విలువల మధ్య వ్యత్యాసం.</p>
+<p class="para">గ్రాఫ్‌లో విలువలను సౌకర్యవంతం గా గుర్తించడం కోసం ప్రతి రాశి యొక్క మధ్యమ విలువలు తెలుసుకుంటే స్కేలు ను ఎంపిక చేయవచ్చు.</p>
+<p class="para">గ్రాఫ్ కాగితం యొక్క గరిష్ట భాగాన్ని ఉపయోగించు కోవడానికి.</p>
+<p class="para">మీకు 25 సెం.మీ $\times$ 25 సెం.మీ పరిమాణం లో ఉన్న గ్రాఫ్ కాగితం ఒకటి ఇచ్చారని అనుకుందాం. పై షరతులకు అనుగుణంగా, పట్టిక 9.5 నందలి దత్తాంశానికి సరిపోయే స్కేలు క్రింది విధంగా ఉండవచ్చు.</p>
+<p class="formula">దూరం: 5 కి.మీ = 1 సెం.మీ,</p>
+<p class="formula"><strong class="term">కాలం</strong>: 6 ని = 1 సెం.మీ</p>
+<p class="para">బస్సు చలనానికి మీరు ఇప్పుడు <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> గీయగలరా? మీరు గీసిన గ్రాఫ్ పటం.9.13లో చూపిన గ్రాఫ్ వలె ఉన్నదా?</p>
+<p class="para">ఒక పట్టిక లోని దత్తాంశం తో పోల్చినప్పుడు, <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong>‌లు చలనానికి సంబంధించి అనేక రకాల సమాచారాన్ని అందిస్తాయి.</p>
+<p class="para">ఉదాహరణకు, పట్టిక 9.5 కేవలం కొన్ని నిర్దిష్ట కాలవ్యవధులలో బస్సు ప్రయాణించిన దూరం గురించి సమాచారం మాత్రమే ఇస్తుంది. మరోవైపు, <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> నుండి మనం ఏ సమయంలోనైనా బస్సు ప్రయాణించిన దూరాన్ని కనుగొనవచ్చు. ఉదయం 8:15 గంటలకు బస్సు ఎంత దూరం ప్రయాణించిందో తెలుసుకోవాలని అనుకుందాం. మనం x-అక్షం పై సమయం (ఉదయం 8:15 )కి సంబంధించిన బిందువు ను గుర్తిస్తాము. ఈ బిందువు A అని అనుకుందాం. తరువాత మనం A బిందువు వద్ద x-అక్షానికి లంబంగా (లేదా y-అక్షానికి సమాంతరంగా) ఒక రేఖ ను గీస్తాము. ఈ లంబ రేఖ గ్రాఫ్ ను ఎక్కడ ఖండిస్తుందో ఆ బిందువును T గా గుర్తిస్తాము (పటము: 9.14). తరువాత, y-అక్షానికి సమాంతరంగా T బిందువు నుండి ఒక రేఖ ను గీస్తాము. ఇది y-అక్షాన్ని B బిందువు వద్ద ఖండిస్తుంది. y-అక్షం పై ఉన్న బిందువు B కి సంబంధించిన దూరం, OB ఉదయం 8:15 సమయంలో బస్సు ప్రయాణించిన దూరాన్ని మనకు కి.మీ లో ఇస్తుంది. ఈ దూరం కి.మీలో ఎంత? ఉదయం 9:45 కి బస్సు ప్రయాణించిన దూరాన్ని కనుగొనడానికి మీరు ఇప్పుడు పహేలికి సహాయం చేయగలరా? మీరు దూరం - <strong class="term">కాలం</strong> గ్రాఫ్ నుండి బస్ <strong class="term">వడి</strong>ని కూడా కనుగొనగలరా?</p>
+<p class="section">కీలక పదాలు</p>
+<p class="para">దిమ్ము రేఖా చిత్రం</p>
+<p class="para">గ్రాఫ్‌లు</p>
+<p class="para">అసమచలనం</p>
+<p class="para">డోలనం</p>
+<p class="para">లఘులోలకం</p>
+<p class="para"><strong class="term">వడి</strong></p>
+<p class="para"><strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong></p>
+<p class="para"><strong class="term">సమ చలనం</strong></p>
+<p class="para">కాలానికి ప్రమాణం</p>
+<p class="section">మనం ఏమి నేర్చుకున్నాం</p>
+<p class="para">ఒక వస్తువు ఏకాంక <strong class="term">కాలం</strong>లో ప్రయాణించిన దూరాన్ని దాని <strong class="term">వడి</strong> అంటారు.</p>
+<p class="para">వస్తువుల <strong class="term">వడి</strong>, మిగతా వాటి కంటే ఏది త్వరగా చలిస్తుందో నిర్ణయించడానికి ఉపయోగపడుతుంది.</p>
+<p class="para">ప్రయాణించిన దూరాన్ని ప్రయాణించడానికి పట్టిన <strong class="term">కాలం</strong> తో భాగిస్తే దానిని వస్తువు <strong class="term">వడి</strong> అంటారు.దీని ప్రాథమిక ప్రమాణం మీటర్/<strong class="term">సెకను</strong> (<strong class="term">మీ/సె</strong>).</p>
+<p class="para">కాలాన్ని కొలవడానికి ఆవర్తనమయ్యే సంఘటనలు ఉపయోగపడతాయి.గడియారాలు మరియు వాచ్ లు తయారు చేయడానికి లోలకం యొక్క ఆవర్తన చలనం ఉపయోగపడుతుంది.</p>
+<p class="para">వస్తువుల చలనాన్ని వాటి <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ద్వారా చిత్ర రూపంలో ప్రదర్శించవచ్చు.</p>
+<p class="para">స్థిర <strong class="term">వడి</strong> తో కదులుతున్న వస్తువు యొక్క చలనానికి <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ఒక సరళ రేఖ.</p>
+<p class="section">అభ్యాసాలు</p>
+<p class="para">క్రింది చలనాలను స్థానాంతర, వృత్తాకార లేదా ఆవర్తన చలానాలుగా వర్గీకరించండి.</p>
+<p class="para">(i) పరిగెడుతున్నప్పుడు మీ చేతుల కదలిక.</p>
+<p class="para">(ii) తిన్నని రహదారిపై బండిని లాగుతున్న గుఱ్ఱం చలనం.</p>
+<p class="para">(iii) రంగులరాట్నం లో పిల్లవాడి చలనం.</p>
+<p class="para">(iv) తూగుడు బల్ల పై పిల్లవాడి చలనం.</p>
+<p class="para">(v) విద్యుత్ గంట పై ఉన్న సుత్తి చలనం.</p>
+<p class="para">(vi) తిన్నని వంతెన మీద రైలు చలనం.</p>
+<p class="para">క్రింది వాటిలో సరి కానివి ఏవి?</p>
+<p class="para">(i) కాలానికి ప్రాథమిక ప్రమాణం <strong class="term">సెకను</strong>.</p>
+<p class="para">(ii) ప్రతి వస్తువు స్థిర <strong class="term">వడి</strong>తో చలిస్తుంది.</p>
+<p class="para">(iii) రెండు పట్టణాల మధ్య దూరాలను కిలోమీటర్లలో కొలుస్తారు.</p>
+<p class="para">(iv) ఒక లోలకం యొక్క <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong> స్థిరం.</p>
+<p class="para">(v) రైలు <strong class="term">వడి</strong>ని మీ/గం. లో తెలియజేస్తారు.</p>
+<p class="para">ఒక <strong class="term">లఘు లోలకం</strong> 32 సె.లో 20 డోలనాలు పూర్తి చేసింది. ఆ లోలకం యొక్క <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong> ఎంత?</p>
+<p class="para">రెండు స్టేషన్ల మధ్య దూరం 240 కి. మీ. ఆ దూరాన్ని ప్రయాణించడానికి ఒక రైలుకు 4 గంటల సమయం పట్టింది. ఆ రైలు యొక్క <strong class="term">వడి</strong>ని లెక్కించండి.</p>
+<p class="para">గడియారం ఉదయం 08:30 సమయాన్ని చూపినప్పుడు ఒక కారు <strong class="term">ఓడోమీటర్</strong> రీడింగ్ 57321.0 కి.మీ. ఉంది. ఉదయం 08:50 సమయంలో, <strong class="term">ఓడోమీటర్</strong> రీడింగ్ 57336.0 కి.మీకి మారినట్లయితే, కారు కదిలిన దూరం ఎంత? ఈ సమయంలో కారు <strong class="term">వడి</strong>ని కి.మీ/ని లో లెక్కించండి. కి.మీ/గంలలో కూడా <strong class="term">వడి</strong> ని తెలియజేయండి.</p>
+<p class="para">సల్మా తన ఇంటి నుండి సైకిల్‌పై తన పాఠశాలకు చేరుకోవడానికి 15 నిమిషాలు పడుతుంది. సైకిల్ 2 <strong class="term">మీ/సె</strong> <strong class="term">వడి</strong> తో ఉంటే, ఆమె ఇల్లు మరియు పాఠశాలల మధ్య దూరాన్ని లెక్కించండి.</p>
+<p class="para">క్రింది సందర్భాలలోని చలనాలకు <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ఆకారాన్ని చూపండి.</p>
+<p class="para">(i) స్థిర<strong class="term">వడి</strong> తో కదులుతున్న కారు.</p>
+<p class="para">(ii) రోడ్డు పక్కన నిలిపిన కారు.</p>
+<p class="para">క్రింది సంబంధాలలో ఏది సరైనది?</p>
+<p class="formula">(i) <strong class="term">వడి</strong> = దూరం $\times$ <strong class="term">కాలం</strong></p>
+<p class="formula">(ii) <strong class="term">వడి</strong> = దూరం / <strong class="term">కాలం</strong></p>
+<p class="formula">(iii) <strong class="term">వడి</strong> = <strong class="term">కాలం</strong> / దూరం</p>
+<p class="formula">(iv) <strong class="term">వడి</strong> = 1/ దూరం$\times$<strong class="term">కాలం</strong></p>
+<p class="para"><strong class="term">వడి</strong> యొక్క ప్రాథమిక ప్రమాణం: (i) కి.మీ / ని (ii) మీ/ని (iii) కి.మీ/గం. (iv) <strong class="term">మీ/సె</strong></p>
+<p class="para">ఒక కారు 15 నిమిషాల పాటు 40 కి.మీ/గం, తదుపరి 15 నిమిషాలు 60 కి.మీ/గం <strong class="term">వడి</strong> తో ప్రయాణించినది. కారు ప్రయాణించిన మొత్తం దూరం: (i) 100 కి.మీ (ii) 25 కి.మీ (iii) 15 కి.మీ (iv) 10 కి.మీ</p>
+<p class="caption">పటం 9.1 మరియు పటం 9.2లో చూపబడిన రెండు పటాలు 10 సెకన్ల వ్యవధిలో తీసుకోబడ్డాయి అనుకుందాం. ఈ పటాలలో 100 మీటర్ల దూరాన్ని 1 సెం.మీ తో చూపించినట్లయితే అత్యంత వేగంగా వెళ్ళిన కారు యొక్క <strong class="term">వడి</strong>ని లెక్కించండి.</p>
+
+<figure class="figure-card" data-figure="పటం 9.15">
+  <div class="image-box">
+    <img src="images/patam_9_15_two_cars_graph.png" alt="పటం 9.15 — రెండు కార్ల చలనాన్ని చూపే దూరం-కాలం గ్రాఫ్"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.15</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.15 — రెండు కార్ల చలనాన్ని చూపే దూరం-కాలం గ్రాఫ్</div>
+  
+</figure>
+<p class="caption">పటం 9.15 ఎ మరియు బి అనే రెండు వాహనాల యొక్క చలనానికి దూరం - <strong class="term">కాలం</strong> గ్రాఫ్‌ని చూపుతుంది. వాటిలో ఏది <strong class="term">వడి</strong>గా కదులుతోంది?</p>
+<p class="caption">పటం 9.15 రెండు కార్ల చలనాన్ని చూపే <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong></p>
+<p class="para">క్రింది వానిలో <strong class="term">వడి</strong> స్థిరంగాలేని ఒక ట్రక్కు చలనాన్ని సూచించే <strong class="term">దూరం-<strong class="term">కాలం</strong> గ్రాఫ్</strong> ఏది?</p>
+<p class="section">విస్తృత అభ్యసనం - కృత్యాలు, ప్రాజెక్ట్లు</p>
+<p class="para">మీరు స్వయంగా ఒక నీడగడియారాన్ని తయారు చేసి, మీరున్న ప్రదేశం లో సమయాన్ని గుర్తించవచ్చు. అట్లాస్ ను ఉపయోగించి మీరున్న ప్రదేశం యొక్క అక్షాంశాన్ని తెలుసుకోండి. ఒక కోణం మీరున్న ప్రదేశం యొక్క అక్షాంశంతో సమానంగా ఉండేటట్లు, దానికి ఎదురుగా ఉన్న కోణం లంబకోణం అయ్యేటట్లు ఒక అట్టముక్క తో త్రిభుజాకారాన్ని కత్తిరించండి. నోమన్ గా పిలవబడే ఈ అట్ట ముక్కను పటం 9.16 లో చూపిన విధంగా ఒక వృత్తాకార అట్ట పై దాని వ్యాసం వెంబడి నిలువుగా అతికించండి. వృత్తాకార అట్ట ముక్క మీద వ్యాసం వెంబడి గాడి చేసి దానిలో నోమన్ ను అతికించడం ఒక మార్గం.</p>
+<p class="para">తర్వాత, రోజులో ఎక్కువ భాగం సూర్యకాంతి పడే బహిరంగ స్థలాన్ని ఎంచుకోండి. భూమిపై ఉత్తర–దక్షిణ దిశలో ఒక గీతను గుర్తించండి. పటం 9.16లో చూపిన విధంగా నీడ గడియారాన్ని ఎండలో ఉంచండి. నోమన్ యొక్క కొన నీడ స్థానాన్ని వృత్తాకార బోర్డుపై వీలైనంత త్వరగా, ఉదాహరణకు ఉదయం 8.00 గంటల సమయం లో గుర్తించండి. రోజంతా ప్రతి గంటకు కొన యొక్క నీడ స్థానాన్ని గుర్తించండి. పటం 9.16లో చూపిన విధంగా మీరు గుర్తించిన ప్రతి బిందువును నోమన్ యొక్క అడుగు భాగం మధ్య బిందువు తో కలుపుతూ గీతలను గీయండి. ఈ గీతలను వృత్తాకార బోర్డు అంతు వరకు విస్తరించండి. మీ ప్రాంతం లో సమయాన్ని తెలుసుకోవడానికి ఈ నీడ గడియారాన్ని ఉపయోగించవచ్చు. పటం 9.16 లో చూపిన విధంగా నోమన్ ను ఎల్లప్పుడూ ఉత్తర-దక్షిణ దిశలోనే ఉండాలని గుర్తుంచుకోండి.</p>
+
+<figure class="figure-card" data-figure="పటం 9.16">
+  <div class="image-box">
+    <img src="images/patam_9_16_sundial.png" alt="పటం 9.16 — నీడ గడియారం"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.16</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.16 — నీడ గడియారం</div>
+  
+</figure>
+<p class="caption">పటం 9.16</p>
+<p class="para">ప్రపంచంలోని వివిధ ప్రాంతాలలో పురాతన <strong class="term">కాలం</strong>లో ఉపయోగించిన కాలాన్ని కొలిచే పరికరాల గురించి సమాచారాన్ని సేేకరించండి. వాటిలో ప్రతిదాని గురించి లఘువ్యాఖ్య వ్రాయండి. దానిలో పరికరం పేరు, దానిని కనుగొన్న ప్రదేశం, అది ఉపయోగించబడిన <strong class="term">కాలం</strong>, దాని ద్వారా కాలాన్ని కొలిచిన ప్రమాణాలు మరియు అందుబాటులో ఉంటే పరికరం యొక్క రేఖాచిత్రం లేదా ఫోటోగ్రాఫ్ సేకరించండి.</p>
+<p class="para">రెండు నిమిషాల కాల వ్యవధిని కొలవగల ఇసుక గడియారం యొక్క నమూనాను తయారుచేయండి. (పటం 9.17)</p>
+
+<figure class="figure-card" data-figure="పటం 9.17">
+  <div class="image-box">
+    <img src="images/patam_9_17_sand_clock.png" alt="పటం 9.17 — రెండు నిమిషాల కాల వ్యవధిని కొలిచే ఇసుక గడియారం"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="placeholder" style="display:none;">
+      📷 Image not found yet<br>
+      <strong>పటం 9.17</strong><br>
+      ఈ స్థానంలో image పెట్టండి
+    </div>
+  </div>
+  <div class="figure-name">🖼️ పటం 9.17 — రెండు నిమిషాల కాల వ్యవధిని కొలిచే ఇసుక గడియారం</div>
+  
+</figure>
+<p class="caption">పటం 9.17</p>
+<p class="para">ఉయ్యాల ఊగడానికి పార్కును సందర్శించినప్పుడు మీరు ఆసక్తికరమైన కృత్యాన్ని నిర్వహించవచ్చు. దానికొరకు ఒక గడియారం అవసరం అవుతుంది. ఉయ్యాల పై ఎవరూ కూర్చోకుండా దానిని డోలనం చేయించండి. మీరు లోలక డోలనావర్తన<strong class="term">కాలం</strong> కనుగొన్న విధంగానే ఉయ్యాలకు కూడా కనుగొనండి. ఉయ్యాల కుదుపులు లేకుండా ఊగేలా చూడండి. మీ స్నేహితుల్లో ఒకరిని ఉయ్యాల పై కూర్చోమని చెప్పండి. దాన్ని ఒకసారి నెట్టి సహజంగా ఊగనివ్వండి మరలా <strong class="term">డోలనావర్తన <strong class="term">కాలం</strong></strong> లెక్కించండి. వేరువేరు వ్యక్తులను ఉయ్యాలలో కూర్చోబెట్టి ఈ కృత్యాన్ని మరలా మరలా చేయండి. వివిధ సందర్భాలలో లెక్కించిన ఆవర్తన కాలాలను పోల్చండి. ఈ కృత్యం ఆధారంగా మీరు ఏమి నిర్ధారణలు చేస్తారు?</p>
+<p class="section">మీకు తెలుసా? భారతదేశంలో సమయపాలన సేవలు న్యూ ఢిల్లీలోని నేషనల్ ఫిజికల్ లాబొరేటరీ ద్వారా అందించబడతాయి. వారు ఉపయోగించే గడియారం <strong class="term">సెకను</strong>లో ఒక మిలియన్ వంతు ఖచ్చితత్వంతో కాల వ్యవధిని కొలవగలదు. ప్రపంచలోనే అత్యంత ఖచ్చితమైన గడియారాన్ని U.S.Aలోని నేషనల్ ఇన్‌స్టిట్యూట్ ఆఫ్ స్టాండर्ड్స్ అండ్ టెక్నాలజీ అభివృద్ధి చేసింది. ఈ గడియారం 20 మిలియన్ సంవత్సరాల పాటు నడిచిన తర్వాత ఒక <strong class="term">సెకను</strong> కోల్పోతుంది లేదా పొందుతుంది.</p>
+  </section>
+
+  <div class="footer"> • Target DSC 2026 • Raja Talluri </div>
+</main>
+
+</body>
+</html>
